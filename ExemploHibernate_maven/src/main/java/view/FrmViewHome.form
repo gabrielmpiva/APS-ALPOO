@@ -77,15 +77,19 @@
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
       <SubComponents>
-        <Component class="javax.swing.JList" name="viewDepartamentoList">
+        <Component class="javax.swing.JList" name="viewBookList">
           <Properties>
             <Property name="model" type="javax.swing.ListModel" editor="org.netbeans.modules.form.editors2.ListModelEditor">
               <StringArray count="0"/>
             </Property>
             <Property name="selectionMode" type="int" value="0"/>
+            <Property name="name" type="java.lang.String" value="" noResource="true"/>
+            <Property name="selectionModel" type="javax.swing.ListSelectionModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+              <Connection code="Books" type="code"/>
+            </Property>
           </Properties>
           <Events>
-            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="viewDepartamentoListMouseClicked"/>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="viewBookListMouseClicked"/>
           </Events>
         </Component>
       </SubComponents>
@@ -104,6 +108,7 @@
       </Properties>
       <Events>
         <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="botaoAlterarMouseClicked"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botaoAlterarActionPerformed"/>
       </Events>
     </Component>
     <Container class="javax.swing.JPanel" name="jPanel1">
@@ -113,7 +118,12 @@
             <TitledBorder title="Dados do Departamento"/>
           </Border>
         </Property>
+        <Property name="toolTipText" type="java.lang.String" value=""/>
+        <Property name="name" type="java.lang.String" value="Livros" noResource="true"/>
       </Properties>
+      <AccessibilityProperties>
+        <Property name="AccessibleContext.accessibleName" type="java.lang.String" value="Listagem dos livros"/>
+      </AccessibilityProperties>
 
       <Layout>
         <DimensionLayout dim="0">
@@ -125,14 +135,20 @@
                           <Component id="labelNome" max="32767" attributes="1"/>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
-                      <Group type="102" alignment="0" attributes="0">
-                          <Component id="labelArea" min="-2" max="-2" attributes="0"/>
+                      <Group type="102" attributes="0">
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="labelArea" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="labelArea1" min="-2" max="-2" attributes="0"/>
+                              <Component id="labelArea2" min="-2" max="-2" attributes="0"/>
+                          </Group>
                           <EmptySpace min="-2" pref="50" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                      <Component id="campoArea" max="32767" attributes="1"/>
+                      <Component id="campoIsbn" max="32767" attributes="1"/>
                       <Component id="campoNome" alignment="0" pref="205" max="32767" attributes="1"/>
+                      <Component id="campoIdEditora" max="32767" attributes="1"/>
+                      <Component id="campoPreco" max="32767" attributes="1"/>
                   </Group>
                   <EmptySpace min="-2" pref="7" max="-2" attributes="0"/>
               </Group>
@@ -148,10 +164,20 @@
                   </Group>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="campoArea" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="campoIsbn" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="labelArea" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="12" max="32767" attributes="0"/>
+                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="campoIdEditora" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="labelArea1" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="campoPreco" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="labelArea2" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -166,10 +192,29 @@
         </Component>
         <Component class="javax.swing.JLabel" name="labelArea">
           <Properties>
-            <Property name="text" type="java.lang.String" value="&#xc1;rea"/>
+            <Property name="text" type="java.lang.String" value="Isbn"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="campoArea">
+        <Component class="javax.swing.JTextField" name="campoIsbn">
+          <Properties>
+            <Property name="disabledTextColor" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="dc" green="dc" red="dc" type="rgb"/>
+            </Property>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="labelArea1">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="ID editora"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JTextField" name="campoIdEditora">
+        </Component>
+        <Component class="javax.swing.JTextField" name="campoPreco">
+        </Component>
+        <Component class="javax.swing.JLabel" name="labelArea2">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Pre&#xe7;o"/>
+          </Properties>
         </Component>
       </SubComponents>
     </Container>

@@ -4,35 +4,35 @@
  */
 
 /*
- * FrmManterDepartamento.java
+ * FrmViewHome.java
  *
  * Created on May 22, 2009, 10:50:36 AM
  */
 package view;
 
-import control.CtrManterDepartamento;
+import control.Controller;
 import java.util.ArrayList;
 import java.util.List;
-import javax.swing.DefaultListModel;
-import javax.swing.JOptionPane;
-import model.Departamento;
+import javax.swing.*;
+
+import dao.BookDAO;
+import model.Books;
 
 /**
  *
  * @author elio
  */
-public class FrmManterDepartamento extends javax.swing.JFrame {
+public class FrmViewHome extends javax.swing.JFrame {
     //declaracao dos atributos
 
-    CtrManterDepartamento ctrManterDepartamento;
-    Departamento depart;
+
+    Books book;
 
     /** Creates new form FrmManterDepartamento */
-    public FrmManterDepartamento() {
+    public FrmViewHome() {
         initComponents();
          //inicia os atributos
-        ctrManterDepartamento = new CtrManterDepartamento();
-        
+
     }
 
     /** This method is called from within the constructor to
@@ -46,14 +46,18 @@ public class FrmManterDepartamento extends javax.swing.JFrame {
 
         botaoInserir = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        viewDepartamentoList = new javax.swing.JList<Departamento>();
+        viewBookList = new javax.swing.JList();
         botaoExcluir = new javax.swing.JButton();
         botaoAlterar = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         labelNome = new javax.swing.JLabel();
         campoNome = new javax.swing.JTextField();
         labelArea = new javax.swing.JLabel();
-        campoArea = new javax.swing.JTextField();
+        campoIsbn = new javax.swing.JTextField();
+        labelArea1 = new javax.swing.JLabel();
+        campoIdEditora = new javax.swing.JTextField();
+        campoPreco = new javax.swing.JTextField();
+        labelArea2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -69,13 +73,14 @@ public class FrmManterDepartamento extends javax.swing.JFrame {
             }
         });
 
-        viewDepartamentoList.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        viewDepartamentoList.addMouseListener(new java.awt.event.MouseAdapter() {
+        viewBookList.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        viewBookList.setName(""); // NOI18N
+        viewBookList.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                viewDepartamentoListMouseClicked(evt);
+                viewBookListMouseClicked(evt);
             }
         });
-        jScrollPane1.setViewportView(viewDepartamentoList);
+        jScrollPane1.setViewportView(viewBookList);
 
         botaoExcluir.setText("Excluir");
         botaoExcluir.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -90,12 +95,25 @@ public class FrmManterDepartamento extends javax.swing.JFrame {
                 botaoAlterarMouseClicked(evt);
             }
         });
+        botaoAlterar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botaoAlterarActionPerformed(evt);
+            }
+        });
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Dados do Departamento"));
+        jPanel1.setToolTipText("");
+        jPanel1.setName("Livros"); // NOI18N
 
         labelNome.setText("Nome");
 
-        labelArea.setText("Área");
+        labelArea.setText("Isbn");
+
+        campoIsbn.setDisabledTextColor(new java.awt.Color(220, 220, 220));
+
+        labelArea1.setText("ID editora");
+
+        labelArea2.setText("Preço");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -108,11 +126,16 @@ public class FrmManterDepartamento extends javax.swing.JFrame {
                         .addComponent(labelNome, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(labelArea)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(labelArea)
+                            .addComponent(labelArea1)
+                            .addComponent(labelArea2))
                         .addGap(50, 50, 50)))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(campoArea)
-                    .addComponent(campoNome, javax.swing.GroupLayout.DEFAULT_SIZE, 205, Short.MAX_VALUE))
+                    .addComponent(campoIsbn)
+                    .addComponent(campoNome, javax.swing.GroupLayout.DEFAULT_SIZE, 205, Short.MAX_VALUE)
+                    .addComponent(campoIdEditora)
+                    .addComponent(campoPreco))
                 .addGap(7, 7, 7))
         );
         jPanel1Layout.setVerticalGroup(
@@ -124,9 +147,17 @@ public class FrmManterDepartamento extends javax.swing.JFrame {
                     .addComponent(labelNome))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(campoArea, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(campoIsbn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(labelArea))
-                .addContainerGap(12, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(campoIdEditora, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(labelArea1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(campoPreco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(labelArea2))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -161,45 +192,59 @@ public class FrmManterDepartamento extends javax.swing.JFrame {
                 .addContainerGap(29, Short.MAX_VALUE))
         );
 
+        jPanel1.getAccessibleContext().setAccessibleName("Listagem dos livros");
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
-        //carrega lista de departamentos
-        DefaultListModel<Departamento> listModel = new DefaultListModel<>();
-        List<Object> listDepartamento = new ArrayList<>();
-        listDepartamento = ctrManterDepartamento.carregarDepartamentos();
-        if (listDepartamento != null) {
-            for (Object deptList : listDepartamento) {
-                listModel.addElement((Departamento) deptList);
+    private void getBooks() {
+        Controller<Books> controller = new Controller<Books>(Books.class, new BookDAO());
+
+        DefaultListModel<Books> listModel = new DefaultListModel<>();
+        List bookList = new ArrayList<>();
+        bookList = controller.carregarTodosDados(Books.ORDER_BY_TITLE);
+        if (bookList != null) {
+            for (Object list : bookList) {
+                listModel.addElement((Books) list);
             }
-            viewDepartamentoList.setModel(listModel);
+            viewBookList.setModel(listModel);
         }
+        campoIsbn.setEditable(false);
+        campoIdEditora.setEditable(false);
+    }
+
+    private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
+     getBooks();
     }//GEN-LAST:event_formWindowActivated
 
-    private void viewDepartamentoListMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_viewDepartamentoListMouseClicked
-        //recupera o departamento selecionado
-        depart = viewDepartamentoList.getSelectedValue();
+    private void viewBookListMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_viewBookListMouseClicked
+        //recupera o livro
+        book = (Books) viewBookList.getSelectedValue();
 
         //exibe os dados do departamento
-        if (depart != null) {
-            campoNome.setText(depart.getNome());
-            campoArea.setText(depart.getArea());
+        if (book != null) {
+            campoNome.setText(book.getTitle());
+            campoIsbn.setText(book.getIsbn());
+            campoIdEditora.setText(String.valueOf(book.getPublisherId()));
+            campoPreco.setText(String.valueOf(book.getPrice()));
         } else {
             JOptionPane.showMessageDialog(null, "Objeto não Encontrado!");
         }
-    }//GEN-LAST:event_viewDepartamentoListMouseClicked
+    }//GEN-LAST:event_viewBookListMouseClicked
 
     private void botaoInserirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botaoInserirMouseClicked
          //atribui valores para o departamento
-        depart = new Departamento();
-        depart.setNome(campoNome.getText());
-        depart.setArea(campoArea.getText());
+        Controller<Books> controller = new Controller<Books>(Books.class, new BookDAO());
+        book = new Books();
+        book.setTitle(campoNome.getText());
+        book.setIsbn(campoIsbn.getText());
+        book.setPublisherId(Integer.parseInt(campoIdEditora.getText()));
+        book.setPrice(Double.parseDouble(campoPreco.getText()));
 
         //inclui departamento
-        if (ctrManterDepartamento.gravarDepartamento(depart) == 1) {
+        if (controller.gravarDados(book) == 1) {
             JOptionPane.showMessageDialog(this, "Objeto persistido");
-        } else if (ctrManterDepartamento.gravarDepartamento(depart) == 2) {
+        } else if (controller.gravarDados(book) == 2) {
             JOptionPane.showMessageDialog(this, "Objeto não persistido");
         } else {
             JOptionPane.showMessageDialog(this, "Nome repetido");
@@ -208,14 +253,15 @@ public class FrmManterDepartamento extends javax.swing.JFrame {
 
     private void botaoExcluirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botaoExcluirMouseClicked
       //recupera o departamento selecionado
-        depart = viewDepartamentoList.getSelectedValue();
+        book = (Books) viewBookList.getSelectedValue();
+        Controller<Books> controller = new Controller<Books>(Books.class, new BookDAO());
 
         //exclui departamento
-        if (depart != null) {
-            if (ctrManterDepartamento.excluirDepartamento(depart)) {
-                JOptionPane.showMessageDialog(null, "Objeto Exclu�do");
+        if (book != null) {
+            if (controller.excluirDado(book)) {
+                JOptionPane.showMessageDialog(null, "Objeto Excluído");
             } else {
-                JOptionPane.showMessageDialog(null, "Objeto n�o exclu�do");
+                JOptionPane.showMessageDialog(null, "Objeto não excluído");
             }
         } else {
             JOptionPane.showMessageDialog(null, "Selecione o Objeto");
@@ -224,22 +270,30 @@ public class FrmManterDepartamento extends javax.swing.JFrame {
 
     private void botaoAlterarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botaoAlterarMouseClicked
          //recupera o departamento selecionado
-        depart = viewDepartamentoList.getSelectedValue();
-        //altera o departamento
-        if (depart != null) {
-            depart.setNome(campoNome.getText());
-            depart.setArea(campoArea.getText());
-
-            if (ctrManterDepartamento.alterarDepartamento(depart)) {
-                JOptionPane.showMessageDialog(this, "Objeto persistido");
-
-            } else {
-                JOptionPane.showMessageDialog(this, "Objeto n�o persistido");
-            }
+        Controller<Books> controller = new Controller<Books>(Books.class, new BookDAO());
+        if (book == null) {
+            book = (Books) viewBookList.getSelectedValue();
+            if (book != null)
+                JOptionPane.showMessageDialog(this, "Objeto não encontrado!");
         } else {
-            JOptionPane.showMessageDialog(this, "Objeto n�o localizado");
+            book.setTitle(campoNome.getText());
+            book.setIsbn(campoIsbn.getText());
+            book.setPublisherId(Integer.parseInt(campoIdEditora.getText()));
+            book.setPrice(Double.parseDouble(campoPreco.getText()));
+
+            if (controller.alterarDado(book)) {
+                JOptionPane.showMessageDialog(this, "Objeto persistido");
+            } else {
+                JOptionPane.showMessageDialog(this, "Objeto não persistido");
+            }
         }
+        getBooks();
+
     }//GEN-LAST:event_botaoAlterarMouseClicked
+
+    private void botaoAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoAlterarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_botaoAlterarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -248,7 +302,7 @@ public class FrmManterDepartamento extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
 
             public void run() {
-                new FrmManterDepartamento().setVisible(true);
+                new FrmViewHome().setVisible(true);
             }
         });
     }
@@ -257,12 +311,16 @@ public class FrmManterDepartamento extends javax.swing.JFrame {
     private javax.swing.JButton botaoAlterar;
     private javax.swing.JButton botaoExcluir;
     private javax.swing.JButton botaoInserir;
-    private javax.swing.JTextField campoArea;
+    private javax.swing.JTextField campoIdEditora;
+    private javax.swing.JTextField campoIsbn;
     private javax.swing.JTextField campoNome;
+    private javax.swing.JTextField campoPreco;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel labelArea;
+    private javax.swing.JLabel labelArea1;
+    private javax.swing.JLabel labelArea2;
     private javax.swing.JLabel labelNome;
-    private javax.swing.JList<Departamento> viewDepartamentoList;
+    private javax.swing.JList viewBookList;
     // End of variables declaration//GEN-END:variables
 }

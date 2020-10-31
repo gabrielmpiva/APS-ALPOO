@@ -23,11 +23,9 @@ public class HibernateConfiguracao {
     private void criaSessionFactory() {
 
         Configuration configuration = new Configuration();
-        configuration.addAnnotatedClass(Book.class);
+        configuration.addAnnotatedClass(Books.class);
         configuration.addAnnotatedClass(Authors.class);
         configuration.addAnnotatedClass(Publishers.class);
-        configuration.addAnnotatedClass(BooksAuthors.class);
-        configuration.addAnnotatedClass(Departamento.class);
         configuration
                 .setProperty("hibernate.dialect", "org.hibernate.dialect.PostgreSQL82Dialect")
                 .setProperty("hibernate.connection.driver_class", "org.postgresql.Driver")
