@@ -23,7 +23,7 @@ public class CtrManterDepartamento {
         }
     }
 
-    public List<Object> carregarDepartamentos() {
+    public List carregarDepartamentos() {
         try {
             return acessohibernatedepto.carregarTudoOrdenado(Departamento.class,"nome");
         } catch (HibernateException e) {

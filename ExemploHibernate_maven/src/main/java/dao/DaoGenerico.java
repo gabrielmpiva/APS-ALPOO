@@ -1,27 +1,20 @@
 package dao;
 
-import model.Departamento;
-import org.hibernate.Criteria;
-import org.hibernate.HibernateException;
-import org.hibernate.Session;
-import org.hibernate.Transaction;
-import org.hibernate.criterion.Order;
+import org.hibernate.*;
 import org.hibernate.criterion.Restrictions;
-
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Predicate;
 
-public class DaoGenerico {
 
-    protected HibernateConfiguracao hibernateConfiguracao;
+public class DaoGenerico<T> {
+    HibernateConfiguracao hibernateConfiguracao;
 
     public DaoGenerico () {
         hibernateConfiguracao = new HibernateConfiguracao();
     }
+
     public void gravar(Object obj) throws HibernateException {
         Session session = hibernateConfiguracao.openSession();
         Transaction transaction = session.beginTransaction();
@@ -46,16 +39,18 @@ public class DaoGenerico {
         session.close();
     }
 
-    public List<Object> carregarTudoOrdenado(Class<model.Departamento> aClass, String ordem) throws HibernateException {
+    public List carregarTudoOrdenado(Class<T> aClass, String ordem) throws HibernateException {
         Session session = hibernateConfiguracao.openSession();
-        Criteria criteria = session.createCriteria(aClass);
-        criteria.addOrder(Order.asc(ordem));
-        List lista = criteria.list();
-        session.close();
-        return lista;
+        CriteriaBuilder builder = session.getCriteriaBuilder();
+        CriteriaQuery<T> criteria = builder.createQuery(aClass);
+        Root<T> objectRoot = criteria.from(aClass);
+        criteria.orderBy(
+                builder.asc(objectRoot.get(ordem))
+        );
+        return session.createQuery(criteria).getResultList();
     }
 
-    public Object carregarUm(int id, Class<?> aClass) throws HibernateException {
+    public Object carregarUm(int id, Class<T> aClass) throws HibernateException {
         Session session = hibernateConfiguracao.openSession();
         Transaction transaction = session.beginTransaction();
         Criteria criteria = session.createCriteria(aClass);
@@ -65,4 +60,5 @@ public class DaoGenerico {
         session.close();
         return obj;
     }
+
 }

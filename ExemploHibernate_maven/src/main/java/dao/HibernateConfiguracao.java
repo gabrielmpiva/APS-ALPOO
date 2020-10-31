@@ -1,6 +1,6 @@
 package dao;
 
-import model.Departamento;
+import model.*;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
@@ -11,8 +11,7 @@ public class HibernateConfiguracao {
 
     private static SessionFactory sessionFactory;
 
-    public HibernateConfiguracao() {
-    }
+    public HibernateConfiguracao() {}
 
     public Session openSession() {
         if (sessionFactory == null) {
@@ -24,13 +23,17 @@ public class HibernateConfiguracao {
     private void criaSessionFactory() {
 
         Configuration configuration = new Configuration();
+        configuration.addAnnotatedClass(Book.class);
+        configuration.addAnnotatedClass(Authors.class);
+        configuration.addAnnotatedClass(Publishers.class);
+        configuration.addAnnotatedClass(BooksAuthors.class);
         configuration.addAnnotatedClass(Departamento.class);
         configuration
                 .setProperty("hibernate.dialect", "org.hibernate.dialect.PostgreSQL82Dialect")
                 .setProperty("hibernate.connection.driver_class", "org.postgresql.Driver")
-                .setProperty("hibernate.connection.url", "jdbc:postgresql://localhost:5432/aula_3")
+                .setProperty("hibernate.connection.url", "jdbc:postgresql://localhost:5432/bd_aps")
                 .setProperty("hibernate.connection.username", "postgres")
-                .setProperty("hibernate.connection.password", "r4f40311")
+                .setProperty("hibernate.connection.password", "postgres")
                 .setProperty("hibernate.show_sql", "false")
                 .setProperty("hibernate.format_sql", "false");
 
