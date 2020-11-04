@@ -13,9 +13,12 @@ package view;
 import control.Controller;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import javax.swing.*;
 
+import dao.AuthorsDAO;
 import dao.BookDAO;
+import model.Authors;
 import model.Books;
 import util.JFrameUtil;
 
@@ -26,7 +29,9 @@ import util.JFrameUtil;
 public class FrmViewHome extends javax.swing.JFrame {
     //declaracao dos atributos
     ArrayList<Books> listaDeLivros = new ArrayList<>();
+    ArrayList<Authors> listaDeAutores = new ArrayList<>();
     Books livroSelecionado;
+    Authors autorSelecionado;
 
     /** Creates new form FrmManterDepartamento */
     public FrmViewHome() {
@@ -44,61 +49,61 @@ public class FrmViewHome extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jTabbedPane2 = new javax.swing.JTabbedPane();
+        abaPrincipal = new javax.swing.JTabbedPane();
         jPanel3 = new javax.swing.JPanel();
         abaEdicao = new javax.swing.JTabbedPane();
         jPanel2 = new javax.swing.JPanel();
-        botaoInserir = new javax.swing.JButton();
-        botaoExcluir = new javax.swing.JButton();
-        botaoAlterar = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         tabelaEditLivro = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
         seletorLivros = new javax.swing.JComboBox<>();
-        jPanel1 = new javax.swing.JPanel();
-        campoTitulo = new javax.swing.JTextField();
-        campoPreco = new javax.swing.JTextField();
+        livrosAbas = new javax.swing.JTabbedPane();
+        livrosPainelEditar = new javax.swing.JPanel();
+        campoTituloLivro = new javax.swing.JTextField();
+        campoPrecoLivro = new javax.swing.JTextField();
         labelPreco = new javax.swing.JLabel();
         labelTitulo = new javax.swing.JLabel();
+        botaoAlterarLivro = new javax.swing.JButton();
+        livrosPainelIncluirDeletar = new javax.swing.JPanel();
+        jPanel9 = new javax.swing.JPanel();
+        botaoIncluirLivro = new javax.swing.JButton();
+        jPanel10 = new javax.swing.JPanel();
+        campoIncluirTitulo = new javax.swing.JTextField();
+        labelIncluirTitulo = new javax.swing.JLabel();
+        campoIncluirPreco = new javax.swing.JTextField();
+        labelIncluirPreco = new javax.swing.JLabel();
+        seletorIncluirAutor = new javax.swing.JComboBox<>();
+        labelIncluirAutor = new javax.swing.JLabel();
+        campoIncluirIsbn = new javax.swing.JTextField();
+        labelIsbn = new javax.swing.JLabel();
+        botaoExcluirLivro = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
         jPanel6 = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
+        abaVisualizacoes = new javax.swing.JTabbedPane();
+        jPanel1 = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tabelaDeVisualizacaoLivros = new javax.swing.JTable();
+        jPanel7 = new javax.swing.JPanel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        tabelaDeVisualizacaoAutores = new javax.swing.JTable();
+        jPanel8 = new javax.swing.JPanel();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        tabelaDeVisualizacaoEditora = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowActivated(java.awt.event.WindowEvent evt) {
                 formWindowActivated(evt);
             }
-        });
-
-        botaoInserir.setText("Incluir");
-        botaoInserir.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                botaoInserirMouseClicked(evt);
-            }
-        });
-        botaoInserir.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botaoInserirActionPerformed(evt);
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
             }
         });
 
-        botaoExcluir.setText("Excluir");
-        botaoExcluir.addMouseListener(new java.awt.event.MouseAdapter() {
+        abaPrincipal.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                botaoExcluirMouseClicked(evt);
-            }
-        });
-
-        botaoAlterar.setText("Alterar");
-        botaoAlterar.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                botaoAlterarMouseClicked(evt);
-            }
-        });
-        botaoAlterar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botaoAlterarActionPerformed(evt);
+                abaPrincipalMouseClicked(evt);
             }
         });
 
@@ -123,96 +128,215 @@ public class FrmViewHome extends javax.swing.JFrame {
             }
         });
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Editar valores"));
-        jPanel1.setToolTipText("");
-
-        campoTitulo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                campoTituloActionPerformed(evt);
-            }
-        });
-
-        campoPreco.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                campoPrecoActionPerformed(evt);
-            }
-        });
+        livrosPainelEditar.setBorder(javax.swing.BorderFactory.createTitledBorder("Editar valores"));
+        livrosPainelEditar.setToolTipText("");
 
         labelPreco.setText("Preço");
 
         labelTitulo.setText("Titulo");
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(labelTitulo)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(campoTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(labelPreco)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(campoPreco, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap())
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        botaoAlterarLivro.setText("Alterar");
+        botaoAlterarLivro.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                botaoAlterarLivroMouseClicked(evt);
+            }
+        });
+        botaoAlterarLivro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botaoAlterarLivroActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout livrosPainelEditarLayout = new javax.swing.GroupLayout(livrosPainelEditar);
+        livrosPainelEditar.setLayout(livrosPainelEditarLayout);
+        livrosPainelEditarLayout.setHorizontalGroup(
+            livrosPainelEditarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(livrosPainelEditarLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(campoTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(livrosPainelEditarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(labelTitulo)
+                    .addComponent(labelPreco))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(livrosPainelEditarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(botaoAlterarLivro, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(campoPrecoLivro, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(campoTituloLivro, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(185, Short.MAX_VALUE))
+        );
+        livrosPainelEditarLayout.setVerticalGroup(
+            livrosPainelEditarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(livrosPainelEditarLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(livrosPainelEditarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(campoTituloLivro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(labelTitulo))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(livrosPainelEditarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(labelPreco)
-                    .addComponent(campoPreco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(campoPrecoLivro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(botaoAlterarLivro)
+                .addContainerGap(54, Short.MAX_VALUE))
+        );
+
+        livrosAbas.addTab("Ediar", livrosPainelEditar);
+
+        botaoIncluirLivro.setText("Incluir");
+        botaoIncluirLivro.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                botaoIncluirLivroMouseClicked(evt);
+            }
+        });
+        botaoIncluirLivro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botaoIncluirLivroActionPerformed(evt);
+            }
+        });
+
+        jPanel10.setBorder(javax.swing.BorderFactory.createTitledBorder("Editar valores"));
+        jPanel10.setToolTipText("");
+
+        labelIncluirTitulo.setText("Titulo");
+
+        labelIncluirPreco.setText("Preço");
+
+        seletorIncluirAutor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                seletorIncluirAutorActionPerformed(evt);
+            }
+        });
+
+        labelIncluirAutor.setText("Autor");
+
+        labelIsbn.setText("Isbn");
+
+        javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
+        jPanel10.setLayout(jPanel10Layout);
+        jPanel10Layout.setHorizontalGroup(
+            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel10Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel10Layout.createSequentialGroup()
+                        .addComponent(labelIncluirAutor)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(seletorIncluirAutor, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel10Layout.createSequentialGroup()
+                        .addComponent(labelIncluirPreco)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
+                        .addComponent(campoIncluirPreco, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel10Layout.createSequentialGroup()
+                        .addComponent(labelIncluirTitulo)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(campoIncluirTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel10Layout.createSequentialGroup()
+                        .addComponent(labelIsbn)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(campoIncluirIsbn, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
+        );
+        jPanel10Layout.setVerticalGroup(
+            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel10Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(campoIncluirTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(labelIncluirTitulo))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(campoIncluirIsbn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(labelIsbn))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(seletorIncluirAutor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(labelIncluirAutor))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(campoIncluirPreco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(labelIncluirPreco))
+                .addContainerGap())
+        );
+
+        javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
+        jPanel9.setLayout(jPanel9Layout);
+        jPanel9Layout.setHorizontalGroup(
+            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel9Layout.createSequentialGroup()
+                .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(botaoIncluirLivro, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(12, Short.MAX_VALUE))
+        );
+        jPanel9Layout.setVerticalGroup(
+            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel9Layout.createSequentialGroup()
+                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(botaoIncluirLivro)
+                    .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
+
+        javax.swing.GroupLayout livrosPainelIncluirDeletarLayout = new javax.swing.GroupLayout(livrosPainelIncluirDeletar);
+        livrosPainelIncluirDeletar.setLayout(livrosPainelIncluirDeletarLayout);
+        livrosPainelIncluirDeletarLayout.setHorizontalGroup(
+            livrosPainelIncluirDeletarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(livrosPainelIncluirDeletarLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        livrosPainelIncluirDeletarLayout.setVerticalGroup(
+            livrosPainelIncluirDeletarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(livrosPainelIncluirDeletarLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        livrosAbas.addTab("Incluir", livrosPainelIncluirDeletar);
+
+        botaoExcluirLivro.setText("Excluir");
+        botaoExcluirLivro.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                botaoExcluirLivroMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 415, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(seletorLivros, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(botaoAlterar, javax.swing.GroupLayout.DEFAULT_SIZE, 127, Short.MAX_VALUE)
-                            .addComponent(botaoExcluir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(botaoInserir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                .addGap(0, 28, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addComponent(livrosAbas, javax.swing.GroupLayout.PREFERRED_SIZE, 439, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(144, 144, 144))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(botaoExcluirLivro, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 415, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
+                                    .addComponent(jLabel1)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addComponent(seletorLivros, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(170, 170, 170))))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(31, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(seletorLivros, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(35, 35, 35)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(botaoExcluirLivro)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(botaoInserir)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(botaoAlterar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(botaoExcluir))
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
+                .addComponent(livrosAbas, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(13, 13, 13))
         );
 
         abaEdicao.addTab("Livros", jPanel2);
@@ -249,31 +373,129 @@ public class FrmViewHome extends javax.swing.JFrame {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(abaEdicao, javax.swing.GroupLayout.PREFERRED_SIZE, 458, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(99, Short.MAX_VALUE))
+                .addComponent(abaEdicao)
+                .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(abaEdicao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(abaEdicao, javax.swing.GroupLayout.PREFERRED_SIZE, 397, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(123, Short.MAX_VALUE))
         );
 
-        jTabbedPane2.addTab("Editar", jPanel3);
+        abaPrincipal.addTab("Editar", jPanel3);
+
+        tabelaDeVisualizacaoLivros.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+
+            }
+        ));
+        tabelaDeVisualizacaoLivros.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                tabelaDeVisualizacaoLivrosFocusGained(evt);
+            }
+        });
+        jScrollPane1.setViewportView(tabelaDeVisualizacaoLivros);
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 567, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1)
+                .addContainerGap())
+        );
+
+        abaVisualizacoes.addTab("Livros", jPanel1);
+
+        tabelaDeVisualizacaoAutores.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+
+            }
+        ));
+        jScrollPane3.setViewportView(tabelaDeVisualizacaoAutores);
+
+        javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
+        jPanel7.setLayout(jPanel7Layout);
+        jPanel7Layout.setHorizontalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel7Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 567, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        jPanel7Layout.setVerticalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel7Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 459, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        abaVisualizacoes.addTab("Autores", jPanel7);
+
+        tabelaDeVisualizacaoEditora.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+
+            }
+        ));
+        jScrollPane4.setViewportView(tabelaDeVisualizacaoEditora);
+
+        javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
+        jPanel8.setLayout(jPanel8Layout);
+        jPanel8Layout.setHorizontalGroup(
+            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel8Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 567, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        jPanel8Layout.setVerticalGroup(
+            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel8Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 459, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        abaVisualizacoes.addTab("Editora", jPanel8);
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 594, Short.MAX_VALUE)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(abaVisualizacoes, javax.swing.GroupLayout.PREFERRED_SIZE, 592, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(18, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 328, Short.MAX_VALUE)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(abaVisualizacoes)
+                .addContainerGap())
         );
 
-        jTabbedPane2.addTab("Visualizar", jPanel4);
+        abaPrincipal.addTab("Visualizar", jPanel4);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -281,76 +503,125 @@ public class FrmViewHome extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jTabbedPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 572, Short.MAX_VALUE)
+                .addComponent(abaPrincipal)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jTabbedPane2)
+                .addComponent(abaPrincipal)
                 .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void carregarObjetos() {
-        if (abaEdicao.isEnabled()) {
-            if (abaEdicao.isEnabledAt(0)){
-                listaDeLivros = new JFrameUtil<Books>(Books.class, new BookDAO()).carregarLivros(listaDeLivros);
-                seletorLivros.removeAllItems();
-                for (Books b : listaDeLivros) {
-                    seletorLivros.addItem(b.getTitle());
-                }
-            }
+    private void carregarLivros() {
+        listaDeLivros = new JFrameUtil<Books>(Books.class, new BookDAO()).carregarLivros(listaDeLivros);
+        seletorLivros.removeAllItems();
+        for (Books b : listaDeLivros) {
+            seletorLivros.addItem(b.getTitle());
+        }
+    }
+
+    private void carregarAutores() {
+        listaDeAutores = new JFrameUtil<Authors>(Authors.class, new AuthorsDAO()).carregarAutores(listaDeAutores);
+        seletorIncluirAutor.removeAllItems();
+        for (Authors a : listaDeAutores) {
+            seletorIncluirAutor.addItem(a.getFullName());
         }
     }
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
-        carregarObjetos();
+        carregarLivros();
+        carregarAutores();
     }//GEN-LAST:event_formWindowActivated
 
-    private void botaoInserirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botaoInserirMouseClicked
-         //atribui valores para o departamento
-        Controller<Books> controller = new Controller<Books>(Books.class, new BookDAO());
-        livroSelecionado = new Books();
-        livroSelecionado.setTitle(campoTitulo.getText());
-        livroSelecionado.setPrice(Double.parseDouble(campoPreco.getText()));
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        // TODO add your handling code here:
 
-        //inclui departamento
-        if (controller.gravarDados(livroSelecionado) == 1) {
-            JOptionPane.showMessageDialog(this, "Objeto persistido");
-        } else if (controller.gravarDados(livroSelecionado) == 2) {
-            JOptionPane.showMessageDialog(this, "Objeto não persistido");
-        } else {
-            JOptionPane.showMessageDialog(this, "Nome repetido");
+    }//GEN-LAST:event_formWindowOpened
+
+    private void abaPrincipalMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_abaPrincipalMouseClicked
+        // TODO add your handling code here:
+        if (abaPrincipal.getSelectedIndex() == 1 ){
+            if (abaVisualizacoes.getSelectedIndex() == 0) {
+                listaDeLivros = new JFrameUtil<Books>(Books.class, new BookDAO()).carregarLivros(listaDeLivros);
+                tabelaDeVisualizacaoLivros
+                        .setModel(new JFrameUtil<Books>(Books.class, new BookDAO())
+                                .carregarLivrosNaTabela(new ArrayList<>(listaDeLivros)));
+            }
         }
-    }//GEN-LAST:event_botaoInserirMouseClicked
+    }//GEN-LAST:event_abaPrincipalMouseClicked
 
-    private void botaoExcluirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botaoExcluirMouseClicked
-      //recupera o departamento selecionado
-        Controller<Books> controller = new Controller<Books>(Books.class, new BookDAO());
+    private void seletorIncluirAutorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_seletorIncluirAutorActionPerformed
+        listaDeAutores.forEach((e) -> {
+            if (e.getFullName().equals(seletorIncluirAutor.getSelectedItem())) {
+                autorSelecionado = e;
+            }
+        });
+    }//GEN-LAST:event_seletorIncluirAutorActionPerformed
 
-        if (livroSelecionado != null) {
-            if (controller.excluirDado(livroSelecionado)) {
-                JOptionPane.showMessageDialog(null, "Objeto Excluído");
+    private void botaoIncluirLivroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoIncluirLivroActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_botaoIncluirLivroActionPerformed
+
+    private void botaoIncluirLivroMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botaoIncluirLivroMouseClicked
+
+        boolean camposInValidos = campoIncluirTitulo.getText().isEmpty() ||
+        campoIncluirPreco.getText().isEmpty() ||
+        campoIncluirIsbn.getText().isEmpty() ||
+        seletorIncluirAutor.getSelectedItem() == null;
+        if (camposInValidos){
+            JOptionPane.showMessageDialog(this, "Existem campos vazios");
+        } else {
+            Controller<Books> controller = new Controller<Books>(Books.class, new BookDAO());
+
+            livroSelecionado = new Books();
+            livroSelecionado.setTitle(campoIncluirTitulo.getText());
+            livroSelecionado.setIsbn(campoIncluirIsbn.getText());
+            livroSelecionado.setPublisherId(autorSelecionado.getAuthorId());
+            livroSelecionado.setPrice(Double.parseDouble(campoIncluirPreco.getText()));
+
+            int retorno = controller.gravarDados(livroSelecionado);
+
+            if (retorno == 1) {
+                JOptionPane.showMessageDialog(this, "Livro adicionado!");
+            } else if (retorno == 2) {
+                JOptionPane.showMessageDialog(this, "Livro não adicionado");
             } else {
-                JOptionPane.showMessageDialog(null, "Objeto não excluído");
+                JOptionPane.showMessageDialog(this, "Livro já existe");
+            }
+        }
+    }//GEN-LAST:event_botaoIncluirLivroMouseClicked
+
+    private void botaoExcluirLivroMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botaoExcluirLivroMouseClicked
+        // TODO add your handling code here:
+        if (livroSelecionado != null) {
+            Controller<Books> controller = new Controller<Books>(Books.class, new BookDAO());
+            if (controller.excluirDado(livroSelecionado)){
+                JOptionPane.showMessageDialog(null, "Livro Excluído");
+            } else {
+                JOptionPane.showMessageDialog(null, "Livro não excluído");
             }
         } else {
-            JOptionPane.showMessageDialog(null, "Selecione o Objeto");
+            JOptionPane.showMessageDialog(null, "Selecione um livro para deleta-lo");
         }
-    }//GEN-LAST:event_botaoExcluirMouseClicked
+    }//GEN-LAST:event_botaoExcluirLivroMouseClicked
 
-    private void botaoAlterarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botaoAlterarMouseClicked
-         //recupera o departamento selecionado
+    private void botaoAlterarLivroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoAlterarLivroActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_botaoAlterarLivroActionPerformed
+
+    private void botaoAlterarLivroMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botaoAlterarLivroMouseClicked
+        //recupera o departamento selecionado
         Controller<Books> controller = new Controller<Books>(Books.class, new BookDAO());
         if (livroSelecionado == null) {
-                JOptionPane.showMessageDialog(this, "Objeto não encontrado!");
+            JOptionPane.showMessageDialog(this, "Objeto não encontrado!");
         } else {
-            livroSelecionado.setTitle(campoTitulo.getText());
-            livroSelecionado.setPrice(Double.parseDouble(campoPreco.getText()));
+            livroSelecionado.setTitle(campoTituloLivro.getText());
+            livroSelecionado.setPrice(Double.parseDouble(campoPrecoLivro.getText()));
 
             if (controller.alterarDado(livroSelecionado)) {
                 JOptionPane.showMessageDialog(this, "Objeto persistido");
@@ -358,40 +629,26 @@ public class FrmViewHome extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this, "Objeto não persistido");
             }
         }
-        carregarObjetos();
-
-    }//GEN-LAST:event_botaoAlterarMouseClicked
-
-    private void botaoAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoAlterarActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_botaoAlterarActionPerformed
-
-    private void botaoInserirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoInserirActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_botaoInserirActionPerformed
-
-    private void campoTituloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoTituloActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_campoTituloActionPerformed
-
-    private void campoPrecoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoPrecoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_campoPrecoActionPerformed
+        carregarLivros();
+    }//GEN-LAST:event_botaoAlterarLivroMouseClicked
 
     private void seletorLivrosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_seletorLivrosActionPerformed
         // TODO add your handling code here:
         listaDeLivros.forEach((e) -> {
-          if (e.getTitle() == seletorLivros.getSelectedItem()) {
-              livroSelecionado = e;
-              tabelaEditLivro
-                      .setModel(new JFrameUtil<Books>(Books.class, new BookDAO())
-                      .carregarLivrosNaTabela(new ArrayList<>(Arrays.asList(livroSelecionado))));
+            if (e.getTitle() == seletorLivros.getSelectedItem()) {
+                livroSelecionado = e;
+                tabelaEditLivro
+                .setModel(new JFrameUtil<Books>(Books.class, new BookDAO())
+                    .carregarLivrosNaTabela(new ArrayList<>(Arrays.asList(livroSelecionado))));
 
-              tabelaEditLivro.getColumnModel().getColumn(0).setPreferredWidth(200);
-          }
+                tabelaEditLivro.getColumnModel().getColumn(0).setPreferredWidth(200);
+            }
         });
-
     }//GEN-LAST:event_seletorLivrosActionPerformed
+
+    private void tabelaDeVisualizacaoLivrosFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tabelaDeVisualizacaoLivrosFocusGained
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tabelaDeVisualizacaoLivrosFocusGained
 
     /**
      * @param args the command line arguments
@@ -407,23 +664,45 @@ public class FrmViewHome extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTabbedPane abaEdicao;
-    private javax.swing.JButton botaoAlterar;
-    private javax.swing.JButton botaoExcluir;
-    private javax.swing.JButton botaoInserir;
-    private javax.swing.JTextField campoPreco;
-    private javax.swing.JTextField campoTitulo;
+    private javax.swing.JTabbedPane abaPrincipal;
+    private javax.swing.JTabbedPane abaVisualizacoes;
+    private javax.swing.JButton botaoAlterarLivro;
+    private javax.swing.JButton botaoExcluirLivro;
+    private javax.swing.JButton botaoIncluirLivro;
+    private javax.swing.JTextField campoIncluirIsbn;
+    private javax.swing.JTextField campoIncluirPreco;
+    private javax.swing.JTextField campoIncluirTitulo;
+    private javax.swing.JTextField campoPrecoLivro;
+    private javax.swing.JTextField campoTituloLivro;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
+    private javax.swing.JPanel jPanel7;
+    private javax.swing.JPanel jPanel8;
+    private javax.swing.JPanel jPanel9;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTabbedPane jTabbedPane2;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JLabel labelIncluirAutor;
+    private javax.swing.JLabel labelIncluirPreco;
+    private javax.swing.JLabel labelIncluirTitulo;
+    private javax.swing.JLabel labelIsbn;
     private javax.swing.JLabel labelPreco;
     private javax.swing.JLabel labelTitulo;
+    private javax.swing.JTabbedPane livrosAbas;
+    private javax.swing.JPanel livrosPainelEditar;
+    private javax.swing.JPanel livrosPainelIncluirDeletar;
+    private javax.swing.JComboBox<String> seletorIncluirAutor;
     private javax.swing.JComboBox<String> seletorLivros;
+    private javax.swing.JTable tabelaDeVisualizacaoAutores;
+    private javax.swing.JTable tabelaDeVisualizacaoEditora;
+    private javax.swing.JTable tabelaDeVisualizacaoLivros;
     private javax.swing.JTable tabelaEditLivro;
     // End of variables declaration//GEN-END:variables
 }

@@ -12,8 +12,7 @@ public class Books {
      */
     private String  title;
     @Id
-    @Column(unique = true)
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "isbn")
     private String  isbn;
 
     private Integer publisher_id;

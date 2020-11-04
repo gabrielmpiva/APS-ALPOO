@@ -1,6 +1,7 @@
 package model;
 
 import javax.persistence.*;
+import java.awt.*;
 
 @Entity
 public class Authors {
@@ -8,19 +9,20 @@ public class Authors {
     @Id
     @Column(unique = true)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer authorId;
+    private Integer author_id;
     private String  name;
-    private String  fName;
+    private String  fname;
+    public static final String ORDER_BY_NAME = "name";
 
     public Authors() {
     }
 
     public Integer getAuthorId() {
-        return authorId;
+        return author_id;
     }
 
     public void setAuthorId(Integer authorId) {
-        this.authorId = authorId;
+        this.author_id = authorId;
     }
 
     public String getName() {
@@ -32,10 +34,23 @@ public class Authors {
     }
 
     public String getfName() {
-        return fName;
+        return fname;
     }
 
     public void setfName(String fName) {
-        this.fName = fName;
+        this.fname = fName;
+    }
+
+    public String getFullName() {
+        return name.replaceAll(" ","") + " " + fname.replaceAll(" ","");
+    }
+
+    @Override
+    public String toString() {
+        return "Authors{" +
+                "author_id=" + author_id +
+                ", name='" + name + '\'' +
+                ", fname='" + fname + '\'' +
+                '}';
     }
 }

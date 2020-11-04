@@ -20,7 +20,8 @@ public class Controller<T> {
             acessohibernatedepto.gravar(object);
             return 1;
         } catch (HibernateException e) {
-            e.printStackTrace();return 2;
+            e.printStackTrace();
+            return 2;
         }
     }
 
@@ -37,7 +38,8 @@ public class Controller<T> {
             return true;
         } catch (HibernateException e) {
             e.printStackTrace();
-            return false;}
+            return false;
+        }
     }
 
     public boolean alterarDado(Object object) {
