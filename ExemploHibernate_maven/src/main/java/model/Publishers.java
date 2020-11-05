@@ -1,16 +1,23 @@
 package model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.*;
 
-@Entity
+@Entity(name = "publishers")
 public class Publishers {
 
     @Id
     @Column(unique = true)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    
     private Integer publisher_Id;
     private String  name;
     private String  url;
+    
+    @OneToMany(mappedBy = "publisher")
+    private List<Books> books = new ArrayList<>(); 
     
     public static final String ORDER_BY_NAME = "name";
     

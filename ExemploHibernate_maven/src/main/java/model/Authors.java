@@ -2,6 +2,7 @@ package model;
 
 import javax.persistence.*;
 import java.awt.*;
+import java.util.ArrayList;
 
 @Entity
 public class Authors {
@@ -12,7 +13,14 @@ public class Authors {
     private Integer author_id;
     private String  name;
     private String  fname;
+    
+    
+    
+    
     public static final String ORDER_BY_NAME = "name";
+    
+    
+    
 
     public Authors() {
     }

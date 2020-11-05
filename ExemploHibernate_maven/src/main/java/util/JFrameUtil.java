@@ -65,14 +65,14 @@ public class JFrameUtil<T> {
         DefaultTableModel modelo = new DefaultTableModel();
         modelo.addColumn("title");
         modelo.addColumn("isbn");
-        modelo.addColumn("publisher_id");
+        modelo.addColumn("publisher");
         modelo.addColumn("price");
         if (listaDeLivros != null && listaDeLivros.size() > 0) {
             modelo.setNumRows(listaDeLivros.size());
             for (int i = 0; i < listaDeLivros.size(); i++) {
                     modelo.setValueAt(listaDeLivros.get(i).getTitle(),i,0);
                     modelo.setValueAt(listaDeLivros.get(i).getIsbn(),i,1);
-                    modelo.setValueAt(listaDeLivros.get(i).getPublisherId(),i,2);
+                    modelo.setValueAt(listaDeLivros.get(i).getPublisher().getName(),i,2);
                     modelo.setValueAt(listaDeLivros.get(i).getPrice(),i,3);
             }
         }

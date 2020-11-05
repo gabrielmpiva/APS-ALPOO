@@ -777,7 +777,7 @@ public class FrmViewHome extends javax.swing.JFrame {
             livroSelecionado = new Books();
             livroSelecionado.setTitle(campoIncluirTitulo.getText());
             livroSelecionado.setIsbn(campoIncluirIsbn.getText());
-            livroSelecionado.setPublisherId(autorSelecionado.getAuthorId());
+            livroSelecionado.setPublisherId(autorSelecionado.());
             livroSelecionado.setPrice(Double.parseDouble(campoIncluirPreco.getText()));
 
             int retorno = controller.gravarDados(livroSelecionado);
