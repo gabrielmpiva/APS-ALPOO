@@ -31,7 +31,7 @@ public class HibernateConfiguracao {
             configuration.addAnnotatedClass(Publishers.class);
             Properties p = new Properties();
 
-            p.load(Thread.currentThread().getContextClassLoader().getResourceAsStream("src/hibernate.properties"));
+            p.load(Thread.currentThread().getContextClassLoader().getResourceAsStream("hibernate.properties"));
             configuration.setProperties(p);
 
             ServiceRegistry serviceRegistry =

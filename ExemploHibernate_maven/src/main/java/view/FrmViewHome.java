@@ -557,11 +557,13 @@ public class FrmViewHome extends javax.swing.JFrame {
 
     private void botaoIncluirLivroMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botaoIncluirLivroMouseClicked
 
-        String parse = campoIncluirPreco.getText().replace(JFrameMaskUtil.CURRENCY_FORMAT,"");
+        String parsePreco = campoIncluirPreco.getText().replace(JFrameMaskUtil.CURRENCY_FORMAT,"");
+        String parseIsbn = campoIncluirIsbn.getText().replace("isbn","");
         boolean camposInValidos = campoIncluirTitulo.getText().isEmpty() ||
         campoIncluirPreco.getText().isEmpty() ||
         campoIncluirIsbn.getText().isEmpty() ||
-                parse.isEmpty() ||
+                parsePreco.isEmpty() ||
+                parseIsbn.isEmpty() ||
         seletorIncluirAutor.getSelectedItem() == null;
         if (camposInValidos){
             JOptionPane.showMessageDialog(this, "Existem campos vazios");
@@ -571,7 +573,7 @@ public class FrmViewHome extends javax.swing.JFrame {
             livroSelecionado.setTitle(campoIncluirTitulo.getText());
             livroSelecionado.setIsbn(campoIncluirIsbn.getText());
             livroSelecionado.setPublisherId(autorSelecionado.getAuthorId());
-            livroSelecionado.setPrice(Double.parseDouble(parse));
+            livroSelecionado.setPrice(Double.parseDouble(parsePreco));
 
             int retorno = new Controller<Books>(Books.class, new BookDAO()).gravarDados(livroSelecionado);
 
