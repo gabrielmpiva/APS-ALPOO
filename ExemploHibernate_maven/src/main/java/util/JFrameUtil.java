@@ -5,13 +5,10 @@ import dao.DaoGenerico;
 import model.Authors;
 import model.Books;
 import model.Publishers;
-
-import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
+
 
 public class JFrameUtil<T> {
 

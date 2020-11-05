@@ -165,9 +165,9 @@ public class FrmViewHome extends javax.swing.JFrame {
                     .addComponent(labelPreco))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(livrosPainelEditarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(botaoAlterarLivro, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(campoAlterarTituloLivro, javax.swing.GroupLayout.DEFAULT_SIZE, 189, Short.MAX_VALUE)
-                    .addComponent(campoAlterarPrecoLivro))
+                    .addComponent(campoAlterarPrecoLivro)
+                    .addComponent(botaoAlterarLivro, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(185, Short.MAX_VALUE))
         );
         livrosPainelEditarLayout.setVerticalGroup(
@@ -829,7 +829,7 @@ public class FrmViewHome extends javax.swing.JFrame {
         carregarLivros();
     }//GEN-LAST:event_botaoAlterarLivroMouseClicked
 
-    private void botaoAlterarEditoraMouseClicked(java.awt.event.MouseEvent evt) {
+    private void botaoAlterarEditoraMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botaoAlterarEditoraMouseClicked
         Controller<Publishers> controller = new Controller<Publishers>(Publishers.class, new PublishersDAO());
         if (editorSelecionado == null) {
             JOptionPane.showMessageDialog(this, "Objeto não encontrado!");
@@ -879,7 +879,6 @@ public class FrmViewHome extends javax.swing.JFrame {
             }
         });
     }
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTabbedPane abaEdicao;
