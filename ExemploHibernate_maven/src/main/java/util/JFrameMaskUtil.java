@@ -8,6 +8,8 @@ import java.awt.event.*;
 
 public class JFrameMaskUtil {
 
+    public static final String CURRENCY_FORMAT = "R$ ";
+
     public static void customFormat(JTextField field,String startValue, FieldType fieldType, int maxLength) {
         field.setText(startValue);
 

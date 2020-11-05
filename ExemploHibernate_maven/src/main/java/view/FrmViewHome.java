@@ -14,6 +14,7 @@ import control.Controller;
 import java.util.ArrayList;
 import java.util.Arrays;
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 
 import dao.AuthorsDAO;
 import dao.BookDAO;
@@ -60,8 +61,8 @@ public class FrmViewHome extends javax.swing.JFrame {
         seletorLivros = new javax.swing.JComboBox<>();
         livrosAbas = new javax.swing.JTabbedPane();
         livrosPainelEditar = new javax.swing.JPanel();
-        campoTituloLivro = new javax.swing.JTextField();
-        campoPrecoLivro = new javax.swing.JTextField();
+        campoAlterarTituloLivro = new javax.swing.JTextField();
+        campoAlterarPrecoLivro = new javax.swing.JTextField();
         labelPreco = new javax.swing.JLabel();
         labelTitulo = new javax.swing.JLabel();
         botaoAlterarLivro = new javax.swing.JButton();
@@ -158,10 +159,10 @@ public class FrmViewHome extends javax.swing.JFrame {
                     .addComponent(labelTitulo)
                     .addComponent(labelPreco))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(livrosPainelEditarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(livrosPainelEditarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(botaoAlterarLivro, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(campoPrecoLivro, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(campoTituloLivro, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(campoAlterarTituloLivro, javax.swing.GroupLayout.DEFAULT_SIZE, 189, Short.MAX_VALUE)
+                    .addComponent(campoAlterarPrecoLivro))
                 .addContainerGap(185, Short.MAX_VALUE))
         );
         livrosPainelEditarLayout.setVerticalGroup(
@@ -169,18 +170,18 @@ public class FrmViewHome extends javax.swing.JFrame {
             .addGroup(livrosPainelEditarLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(livrosPainelEditarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(campoTituloLivro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(campoAlterarTituloLivro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(labelTitulo))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(livrosPainelEditarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(labelPreco)
-                    .addComponent(campoPrecoLivro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(campoAlterarPrecoLivro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(botaoAlterarLivro)
                 .addContainerGap(54, Short.MAX_VALUE))
         );
 
-        livrosAbas.addTab("Ediar", livrosPainelEditar);
+        livrosAbas.addTab("Editar", livrosPainelEditar);
 
         botaoIncluirLivro.setText("Incluir");
         botaoIncluirLivro.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -519,10 +520,16 @@ public class FrmViewHome extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void carregarLivros() {
+        listaDeLivros = new ArrayList<>();
         listaDeLivros = new JFrameUtil<Books>(Books.class, new BookDAO()).carregarLivros(listaDeLivros);
         seletorLivros.removeAllItems();
+
         for (Books b : listaDeLivros) {
             seletorLivros.addItem(b.getTitle());
+        }
+
+        if (listaDeLivros.size() == 0) {
+            tabelaEditLivro.setModel(new DefaultTableModel());
         }
     }
 
@@ -535,17 +542,16 @@ public class FrmViewHome extends javax.swing.JFrame {
     }
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
-        carregarLivros();
-        carregarAutores();
+
     }//GEN-LAST:event_formWindowActivated
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        carregarLivros();
+        carregarAutores();
         setup();
-
     }//GEN-LAST:event_formWindowOpened
 
     private void abaPrincipalMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_abaPrincipalMouseClicked
-        // TODO add your handling code here:
         if (abaPrincipal.getSelectedIndex() == 1 ){
             if (abaVisualizacoes.getSelectedIndex() == 0) {
                 listaDeLivros = new JFrameUtil<Books>(Books.class, new BookDAO()).carregarLivros(listaDeLivros);
@@ -570,9 +576,11 @@ public class FrmViewHome extends javax.swing.JFrame {
 
     private void botaoIncluirLivroMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botaoIncluirLivroMouseClicked
 
+        String parse = campoIncluirPreco.getText().replace(JFrameMaskUtil.CURRENCY_FORMAT,"");
         boolean camposInValidos = campoIncluirTitulo.getText().isEmpty() ||
         campoIncluirPreco.getText().isEmpty() ||
         campoIncluirIsbn.getText().isEmpty() ||
+                parse.isEmpty() ||
         seletorIncluirAutor.getSelectedItem() == null;
         if (camposInValidos){
             JOptionPane.showMessageDialog(this, "Existem campos vazios");
@@ -582,12 +590,13 @@ public class FrmViewHome extends javax.swing.JFrame {
             livroSelecionado.setTitle(campoIncluirTitulo.getText());
             livroSelecionado.setIsbn(campoIncluirIsbn.getText());
             livroSelecionado.setPublisherId(autorSelecionado.getAuthorId());
-            livroSelecionado.setPrice(Double.parseDouble(campoIncluirPreco.getText()));
+            livroSelecionado.setPrice(Double.parseDouble(parse));
 
             int retorno = new Controller<Books>(Books.class, new BookDAO()).gravarDados(livroSelecionado);
 
             if (retorno == 1) {
                 JOptionPane.showMessageDialog(this, "Livro adicionado!");
+                carregarLivros();
             } else if (retorno == 2) {
                 JOptionPane.showMessageDialog(this, "Livro não adicionado");
             } else {
@@ -606,7 +615,7 @@ public class FrmViewHome extends javax.swing.JFrame {
         } else {
             JOptionPane.showMessageDialog(null, "Selecione um livro para deleta-lo");
         }
-
+        carregarLivros();
     }//GEN-LAST:event_botaoExcluirLivroMouseClicked
 
     private void botaoAlterarLivroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoAlterarLivroActionPerformed
@@ -615,11 +624,14 @@ public class FrmViewHome extends javax.swing.JFrame {
 
     private void botaoAlterarLivroMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botaoAlterarLivroMouseClicked
         Controller<Books> controller = new Controller<Books>(Books.class, new BookDAO());
+        String parse = campoAlterarPrecoLivro.getText().replace(JFrameMaskUtil.CURRENCY_FORMAT,"");
         if (livroSelecionado == null) {
             JOptionPane.showMessageDialog(this, "Objeto não encontrado!");
+        } else if (campoAlterarTituloLivro.getText().isEmpty() || parse.isEmpty()){
+            JOptionPane.showMessageDialog(this, "Existem campos vazios!");
         } else {
-            livroSelecionado.setTitle(campoTituloLivro.getText());
-            livroSelecionado.setPrice(Double.parseDouble(campoPrecoLivro.getText()));
+            livroSelecionado.setTitle(campoAlterarTituloLivro.getText());
+            livroSelecionado.setPrice(Double.parseDouble(parse));
 
             if (controller.alterarDado(livroSelecionado)) {
                 JOptionPane.showMessageDialog(this, "Objeto persistido");
@@ -631,17 +643,17 @@ public class FrmViewHome extends javax.swing.JFrame {
     }//GEN-LAST:event_botaoAlterarLivroMouseClicked
 
     private void seletorLivrosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_seletorLivrosActionPerformed
-        // TODO add your handling code here:
         listaDeLivros.forEach((e) -> {
             if (e.getTitle() == seletorLivros.getSelectedItem()) {
                 livroSelecionado = e;
                 tabelaEditLivro
-                .setModel(new JFrameUtil<Books>(Books.class, new BookDAO())
-                    .carregarLivrosNaTabela(new ArrayList<>(Arrays.asList(livroSelecionado))));
+                        .setModel(new JFrameUtil<Books>(Books.class, new BookDAO())
+                                .carregarLivrosNaTabela(new ArrayList<>(Arrays.asList(livroSelecionado))));
 
                 tabelaEditLivro.getColumnModel().getColumn(0).setPreferredWidth(200);
             }
         });
+
     }//GEN-LAST:event_seletorLivrosActionPerformed
 
     private void tabelaDeVisualizacaoLivrosFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tabelaDeVisualizacaoLivrosFocusGained
@@ -650,7 +662,7 @@ public class FrmViewHome extends javax.swing.JFrame {
 
     private void setup() {
         JFrameMaskUtil.customFormat(campoIncluirPreco,"R$ ", FieldType.CURRENCY,10);
-        JFrameMaskUtil.customFormat(campoPrecoLivro,"R$ ", FieldType.CURRENCY,10);
+        JFrameMaskUtil.customFormat(campoAlterarPrecoLivro, JFrameMaskUtil.CURRENCY_FORMAT, FieldType.CURRENCY,10);
         JFrameMaskUtil.customFormat(campoIncluirIsbn,"isbn", FieldType.POSITIVE_INTEGER,13);
         JFrameMaskUtil.customFormat(campoIncluirTitulo,"", FieldType.LETTERS,60);
     }
@@ -675,11 +687,11 @@ public class FrmViewHome extends javax.swing.JFrame {
     private javax.swing.JButton botaoAlterarLivro;
     private javax.swing.JButton botaoExcluirLivro;
     private javax.swing.JButton botaoIncluirLivro;
+    private javax.swing.JTextField campoAlterarPrecoLivro;
+    private javax.swing.JTextField campoAlterarTituloLivro;
     private javax.swing.JTextField campoIncluirIsbn;
     private javax.swing.JTextField campoIncluirPreco;
     private javax.swing.JTextField campoIncluirTitulo;
-    private javax.swing.JTextField campoPrecoLivro;
-    private javax.swing.JTextField campoTituloLivro;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
