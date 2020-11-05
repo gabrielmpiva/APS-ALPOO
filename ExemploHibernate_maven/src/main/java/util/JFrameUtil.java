@@ -4,12 +4,14 @@ import control.Controller;
 import dao.DaoGenerico;
 import model.Authors;
 import model.Books;
+import model.Publishers;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class JFrameUtil<T> {
 
@@ -44,6 +46,19 @@ public class JFrameUtil<T> {
             listaDeAutores.add((Authors) o);
         }
         return listaDeAutores;
+    }
+    
+    
+    public ArrayList<Publishers> carregarEditoras(ArrayList<Publishers> listaDeEditoras) {
+
+    	  List<Object> Livros = new ArrayList<>();
+          listaDeEditoras = new ArrayList<>();
+
+          Livros = controller.carregarTodosDados(Publishers.ORDER_BY_NAME);
+          for (Object o : Livros) {
+              listaDeEditoras.add((Publishers) o);
+          }
+          return listaDeEditoras;
     }
 
     public DefaultTableModel carregarLivrosNaTabela(ArrayList<Books> listaDeLivros) {
