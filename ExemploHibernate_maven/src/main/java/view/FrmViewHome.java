@@ -11,16 +11,24 @@
 package view;
 
 import control.Controller;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.Arrays;
 import javax.swing.*;
+import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
 
 import dao.AuthorsDAO;
 import dao.BookDAO;
+import dao.PublishersDAO;
 import enums.FieldType;
 import model.Authors;
 import model.Books;
+import model.Publishers;
 import util.JFrameMaskUtil;
 import util.JFrameUtil;
 
@@ -32,8 +40,10 @@ public class FrmViewHome extends javax.swing.JFrame {
     //declaracao dos atributos
     ArrayList<Books> listaDeLivros = new ArrayList<>();
     ArrayList<Authors> listaDeAutores = new ArrayList<>();
+    private ArrayList<Publishers> listaDeEditoras = new ArrayList<>();
     Books livroSelecionado;
     Authors autorSelecionado;
+    private Publishers editorSelecionado;
 
     /** Creates new form FrmManterDepartamento */
     public FrmViewHome() {
@@ -346,16 +356,137 @@ public class FrmViewHome extends javax.swing.JFrame {
 
         abaEdicao.addTab("Autor", jPanel5);
 
+        EditoraAbas_1 = new JTabbedPane();
+
+        botaoExcluirEditora = new JButton();
+        botaoExcluirEditora.addMouseListener(new MouseAdapter() {
+        	@Override
+        	public void mouseClicked(MouseEvent e) {
+        		botaoExcluirEditoraMouseClicked(e);
+        	}
+        });
+        botaoExcluirEditora.setText("Excluir");
+
+        jScrollPane2_1 = new JScrollPane();
+
+        jLabel1_1 = new JLabel();
+        jLabel1_1.setText("Editora selecionada:");
+
+        seletorEditoras = new JComboBox<String>();
+        seletorEditoras.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		seletorIncluirEditoraActionPerformed(e);
+        	}
+        });
+
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
-        jPanel6.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+        	jPanel6Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+        		.addGroup(jPanel6Layout.createSequentialGroup()
+        			.addContainerGap()
+        			.addGroup(jPanel6Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+        				.addGroup(jPanel6Layout.createSequentialGroup()
+        					.addComponent(jLabel1_1, GroupLayout.PREFERRED_SIZE, 107, GroupLayout.PREFERRED_SIZE)
+        					.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+        					.addComponent(seletorEditoras, GroupLayout.PREFERRED_SIZE, 195, GroupLayout.PREFERRED_SIZE))
+        				.addComponent(jScrollPane2_1, GroupLayout.PREFERRED_SIZE, 415, GroupLayout.PREFERRED_SIZE)
+        				.addGroup(jPanel6Layout.createSequentialGroup()
+        					.addGap(288)
+        					.addComponent(botaoExcluirEditora, GroupLayout.PREFERRED_SIZE, 127, GroupLayout.PREFERRED_SIZE))
+        				.addGroup(jPanel6Layout.createSequentialGroup()
+        					.addGap(2)
+        					.addComponent(EditoraAbas_1, GroupLayout.PREFERRED_SIZE, 439, GroupLayout.PREFERRED_SIZE)))
+        			.addContainerGap(144, Short.MAX_VALUE))
         );
         jPanel6Layout.setVerticalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+        	jPanel6Layout.createParallelGroup(GroupLayout.Alignment.TRAILING)
+        		.addGroup(jPanel6Layout.createSequentialGroup()
+        			.addContainerGap(29, Short.MAX_VALUE)
+        			.addGroup(jPanel6Layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+        				.addComponent(jLabel1_1)
+        				.addComponent(seletorEditoras, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+        			.addGap(15)
+        			.addComponent(jScrollPane2_1, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE)
+        			.addGap(11)
+        			.addComponent(botaoExcluirEditora)
+        			.addGap(6)
+        			.addComponent(EditoraAbas_1, GroupLayout.PREFERRED_SIZE, 202, GroupLayout.PREFERRED_SIZE)
+        			.addGap(19))
         );
+
+        editorasPainelEditar = new JPanel();
+        editorasPainelEditar.setBorder(new TitledBorder(null, "Editar valores", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+        EditoraAbas_1.addTab("Editar", null, editorasPainelEditar, null);
+        editorasPainelEditar.setLayout(null);
+
+        JLabel labelNomeAlterar = new JLabel();
+        labelNomeAlterar.setText("Nome");
+        labelNomeAlterar.setBounds(20, 43, 239, 14);
+        editorasPainelEditar.add(labelNomeAlterar);
+
+        JLabel labelUrlAlterar = new JLabel();
+        labelUrlAlterar.setText("Url");
+        labelUrlAlterar.setBounds(20, 69, 239, 14);
+        editorasPainelEditar.add(labelUrlAlterar);
+
+        JButton btnAlterar = new JButton();
+        btnAlterar.addMouseListener(new MouseAdapter() {
+        	@Override
+        	public void mouseClicked(MouseEvent e) {
+        		botaoAlterarEditoraMouseClicked(e);
+        	}
+        });
+        btnAlterar.setText("Alterar");
+        btnAlterar.setBounds(57, 104, 202, 23);
+        editorasPainelEditar.add(btnAlterar);
+
+        textFieldUrlEditar = new JTextField();
+        textFieldUrlEditar.setBounds(57, 66, 202, 20);
+        editorasPainelEditar.add(textFieldUrlEditar);
+
+        textFieldNomeEditar = new JTextField();
+        textFieldNomeEditar.setBounds(57, 40, 202, 20);
+        editorasPainelEditar.add(textFieldNomeEditar);
+
+        editorasPainelIncluir = new JPanel();
+        editorasPainelIncluir.setBorder(new TitledBorder(null, "Incluir valores", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+        EditoraAbas_1.addTab("Incluir", null, editorasPainelIncluir, null);
+        editorasPainelIncluir.setLayout(null);
+
+        JLabel labelNome_1 = new JLabel();
+        labelNome_1.setText("Nome");
+        labelNome_1.setBounds(10, 32, 239, 14);
+        editorasPainelIncluir.add(labelNome_1);
+
+        JLabel labelPreco_1 = new JLabel();
+        labelPreco_1.setText("Url");
+        labelPreco_1.setBounds(10, 58, 239, 14);
+        editorasPainelIncluir.add(labelPreco_1);
+
+
+
+        textFieldIncluirUrl = new JTextField();
+        textFieldIncluirUrl.setBounds(47, 55, 202, 20);
+        editorasPainelIncluir.add(textFieldIncluirUrl);
+
+        textFieldIncluirNome = new JTextField();
+        textFieldIncluirNome.setBounds(47, 29, 202, 20);
+        editorasPainelIncluir.add(textFieldIncluirNome);
+
+
+        JButton botaoIncluirEditora = new JButton();
+        botaoIncluirEditora.addMouseListener(new java.awt.event.MouseAdapter() {
+        	@Override
+        	public void mouseClicked(java.awt.event.MouseEvent e) {
+        		AdicionarEditoras(e);
+        	}});
+        botaoIncluirEditora.setText("Incluir");
+        botaoIncluirEditora.setBounds(47, 93, 202, 23);
+        editorasPainelIncluir.add(botaoIncluirEditora);
+
+        tabelaEditEditora = new JTable();
+        jScrollPane2_1.setViewportView(tabelaEditEditora);
+        jPanel6.setLayout(jPanel6Layout);
 
         abaEdicao.addTab("Editora", jPanel6);
 
@@ -518,6 +649,44 @@ public class FrmViewHome extends javax.swing.JFrame {
         }
     }
 
+    private void AdicionarEditoras(java.awt.event.MouseEvent evt)
+    {
+        boolean camposInValidos = textFieldIncluirNome.getText().isEmpty() ||
+                textFieldIncluirUrl.getText().isEmpty();
+        campoIncluirIsbn.getText().isEmpty();
+        if (camposInValidos){
+            JOptionPane.showMessageDialog(this, "Existem campos vazios");
+        } else {
+            Controller<Publishers> controller = new Controller<Publishers>(Publishers.class, new PublishersDAO());
+
+            Publishers novaEditora = new Publishers();
+            novaEditora.setName(textFieldIncluirNome.getText());
+            novaEditora.setUrl(textFieldIncluirUrl.getText());
+
+
+            int retorno = controller.gravarDados(novaEditora);
+
+            if (retorno == 1) {
+                JOptionPane.showMessageDialog(this, "Editora adicionadoa");
+                carregarEditoras();
+            } else if (retorno == 2) {
+                JOptionPane.showMessageDialog(this, "Editora não adicionado");
+            } else {
+                JOptionPane.showMessageDialog(this, "Editora já existe");
+            }
+            textFieldIncluirNome.setText("");
+            textFieldIncluirUrl.setText("");
+        }
+    }
+
+    private void carregarEditoras() {
+        listaDeEditoras = new JFrameUtil<Publishers>(Publishers.class, new PublishersDAO()).carregarEditoras(listaDeEditoras);
+        seletorEditoras.removeAllItems();
+        for (Publishers b : listaDeEditoras) {
+            seletorEditoras.addItem(b.getName());
+        }
+    }
+
     private void carregarAutores() {
         listaDeAutores = new JFrameUtil<Authors>(Authors.class, new AuthorsDAO()).carregarAutores(listaDeAutores);
         seletorIncluirAutor.removeAllItems();
@@ -531,6 +700,7 @@ public class FrmViewHome extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowActivated
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        carregarEditoras();
         carregarLivros();
         carregarAutores();
         setup();
@@ -544,6 +714,12 @@ public class FrmViewHome extends javax.swing.JFrame {
                         .setModel(new JFrameUtil<Books>(Books.class, new BookDAO())
                                 .carregarLivrosNaTabela(new ArrayList<>(listaDeLivros)));
             }
+            if (abaVisualizacoes.getSelectedIndex() == 2) {
+                listaDeEditoras = new JFrameUtil<Publishers>(Publishers.class, new PublishersDAO()).carregarEditoras(listaDeEditoras);
+                tabelaDeVisualizacaoEditora
+                        .setModel(new JFrameUtil<Publishers>(Publishers.class, new PublishersDAO())
+                                .carregarEditorasNaTabela(new ArrayList<>(listaDeEditoras)));
+            }
         }
     }//GEN-LAST:event_abaPrincipalMouseClicked
 
@@ -554,6 +730,23 @@ public class FrmViewHome extends javax.swing.JFrame {
             }
         });
     }//GEN-LAST:event_seletorIncluirAutorActionPerformed
+
+    private void seletorIncluirEditoraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_seletorIncluirEditoraActionPerformed
+        listaDeEditoras.forEach((e) -> {
+            if (e.getName().equals(seletorEditoras.getSelectedItem())) {
+                editorSelecionado = e;
+                textFieldNomeEditar.setText(editorSelecionado.getName().trim());
+                textFieldUrlEditar.setText(editorSelecionado.getUrl().trim());
+
+                tabelaEditEditora
+                        .setModel(new JFrameUtil<Publishers>(Publishers.class, new PublishersDAO())
+                                .carregarEditorasNaTabela(new ArrayList<>(Arrays.asList(editorSelecionado))));
+
+                tabelaEditEditora.getColumnModel().getColumn(0).setPreferredWidth(200);
+
+            }
+        });
+    }//GEN-LAST:event_seletorIncluirEditoraActionPerformed
 
     private void botaoIncluirLivroMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botaoIncluirLivroMouseClicked
 
@@ -601,6 +794,21 @@ public class FrmViewHome extends javax.swing.JFrame {
         carregarLivros();
     }//GEN-LAST:event_botaoExcluirLivroMouseClicked
 
+    private void botaoExcluirEditoraMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botaoExcluirEditoraMouseClicked
+        // TODO add your handling code here:
+        if (editorSelecionado != null) {
+            Controller<Publishers> controller = new Controller<Publishers>(Publishers.class, new PublishersDAO());
+            if (controller.excluirDado(editorSelecionado)){
+                JOptionPane.showMessageDialog(null, "Editora Excluído");
+                carregarEditoras();
+            } else {
+                JOptionPane.showMessageDialog(null, "Editora não excluído");
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Selecione um Editora para deleta-la");
+        }
+    }//GEN-LAST:event_botaoExcluirEditoraMouseClicked
+
     private void botaoAlterarLivroMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botaoAlterarLivroMouseClicked
         Controller<Books> controller = new Controller<Books>(Books.class, new BookDAO());
         String parse = campoAlterarPrecoLivro.getText().replace(JFrameMaskUtil.CURRENCY_FORMAT,"");
@@ -620,6 +828,24 @@ public class FrmViewHome extends javax.swing.JFrame {
         }
         carregarLivros();
     }//GEN-LAST:event_botaoAlterarLivroMouseClicked
+
+    private void botaoAlterarEditoraMouseClicked(java.awt.event.MouseEvent evt) {
+        Controller<Publishers> controller = new Controller<Publishers>(Publishers.class, new PublishersDAO());
+        if (editorSelecionado == null) {
+            JOptionPane.showMessageDialog(this, "Objeto não encontrado!");
+        } else {
+            editorSelecionado.setName(textFieldNomeEditar.getText());
+            editorSelecionado.setUrl(textFieldUrlEditar.getText());
+
+            if (controller.alterarDado(editorSelecionado)) {
+                JOptionPane.showMessageDialog(this, "Objeto persistido");
+                carregarEditoras();
+            } else {
+                JOptionPane.showMessageDialog(this, "Objeto não persistido");
+            }
+        }
+        carregarLivros();
+    }//GEN-LAST:event_botaoAlterarEditoraMouseClicked
 
     private void seletorLivrosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_seletorLivrosActionPerformed
         listaDeLivros.forEach((e) -> {
@@ -697,5 +923,17 @@ public class FrmViewHome extends javax.swing.JFrame {
     private javax.swing.JTable tabelaDeVisualizacaoEditora;
     private javax.swing.JTable tabelaDeVisualizacaoLivros;
     private javax.swing.JTable tabelaEditLivro;
+    private JTabbedPane EditoraAbas_1;
+    private JButton botaoExcluirEditora;
+    private JScrollPane jScrollPane2_1;
+    private JLabel jLabel1_1;
+    private JComboBox<String> seletorEditoras;
+    private JTable tabelaEditEditora;
+    private JPanel editorasPainelEditar;
+    private JPanel editorasPainelIncluir;
+    private JTextField textFieldIncluirUrl;
+    private JTextField textFieldIncluirNome;
+    private JTextField textFieldUrlEditar;
+    private JTextField textFieldNomeEditar;
     // End of variables declaration//GEN-END:variables
 }

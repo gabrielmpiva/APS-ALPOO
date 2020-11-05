@@ -4,12 +4,14 @@ import control.Controller;
 import dao.DaoGenerico;
 import model.Authors;
 import model.Books;
+import model.Publishers;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class JFrameUtil<T> {
 
@@ -46,6 +48,19 @@ public class JFrameUtil<T> {
         return listaDeAutores;
     }
 
+
+    public ArrayList<Publishers> carregarEditoras(ArrayList<Publishers> listaDeEditoras) {
+
+    	  List<Object> Livros = new ArrayList<>();
+          listaDeEditoras = new ArrayList<>();
+
+          Livros = controller.carregarTodosDados(Publishers.ORDER_BY_NAME);
+          for (Object o : Livros) {
+              listaDeEditoras.add((Publishers) o);
+          }
+          return listaDeEditoras;
+    }
+
     public DefaultTableModel carregarLivrosNaTabela(ArrayList<Books> listaDeLivros) {
         DefaultTableModel modelo = new DefaultTableModel();
         modelo.addColumn("title");
@@ -59,6 +74,24 @@ public class JFrameUtil<T> {
                     modelo.setValueAt(listaDeLivros.get(i).getIsbn(),i,1);
                     modelo.setValueAt(listaDeLivros.get(i).getPublisherId(),i,2);
                     modelo.setValueAt(listaDeLivros.get(i).getPrice(),i,3);
+            }
+        }
+        return modelo;
+    }
+
+
+    public DefaultTableModel carregarEditorasNaTabela(ArrayList<Publishers> listaDeEditoras) {
+        DefaultTableModel modelo = new DefaultTableModel();
+        modelo.addColumn("id");
+        modelo.addColumn("nome");
+        modelo.addColumn("url");
+        if (listaDeEditoras != null && listaDeEditoras.size() > 0) {
+            modelo.setNumRows(listaDeEditoras.size());
+            for (int i = 0; i < listaDeEditoras.size(); i++) {
+                    modelo.setValueAt(listaDeEditoras.get(i).getPublisherId(),i,0);
+                    modelo.setValueAt(listaDeEditoras.get(i).getName(),i,1);
+                    modelo.setValueAt(listaDeEditoras.get(i).getUrl(),i,2);
+
             }
         }
         return modelo;
