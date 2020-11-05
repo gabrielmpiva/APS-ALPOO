@@ -13,13 +13,14 @@ package view;
 import control.Controller;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import javax.swing.*;
 
 import dao.AuthorsDAO;
 import dao.BookDAO;
+import enums.FieldType;
 import model.Authors;
 import model.Books;
+import util.JFrameMaskUtil;
 import util.JFrameUtil;
 
 /**
@@ -539,7 +540,7 @@ public class FrmViewHome extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowActivated
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
-        // TODO add your handling code here:
+        setup();
 
     }//GEN-LAST:event_formWindowOpened
 
@@ -576,7 +577,6 @@ public class FrmViewHome extends javax.swing.JFrame {
         if (camposInValidos){
             JOptionPane.showMessageDialog(this, "Existem campos vazios");
         } else {
-            Controller<Books> controller = new Controller<Books>(Books.class, new BookDAO());
 
             livroSelecionado = new Books();
             livroSelecionado.setTitle(campoIncluirTitulo.getText());
@@ -584,7 +584,7 @@ public class FrmViewHome extends javax.swing.JFrame {
             livroSelecionado.setPublisherId(autorSelecionado.getAuthorId());
             livroSelecionado.setPrice(Double.parseDouble(campoIncluirPreco.getText()));
 
-            int retorno = controller.gravarDados(livroSelecionado);
+            int retorno = new Controller<Books>(Books.class, new BookDAO()).gravarDados(livroSelecionado);
 
             if (retorno == 1) {
                 JOptionPane.showMessageDialog(this, "Livro adicionado!");
@@ -597,10 +597,8 @@ public class FrmViewHome extends javax.swing.JFrame {
     }//GEN-LAST:event_botaoIncluirLivroMouseClicked
 
     private void botaoExcluirLivroMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botaoExcluirLivroMouseClicked
-        // TODO add your handling code here:
-        if (livroSelecionado != null) {
-            Controller<Books> controller = new Controller<Books>(Books.class, new BookDAO());
-            if (controller.excluirDado(livroSelecionado)){
+        if (livroSelecionado != null && seletorLivros.getSelectedItem() != null) {
+            if (new Controller<Books>(Books.class, new BookDAO()).excluirDado(livroSelecionado)){
                 JOptionPane.showMessageDialog(null, "Livro Excluído");
             } else {
                 JOptionPane.showMessageDialog(null, "Livro não excluído");
@@ -608,6 +606,7 @@ public class FrmViewHome extends javax.swing.JFrame {
         } else {
             JOptionPane.showMessageDialog(null, "Selecione um livro para deleta-lo");
         }
+
     }//GEN-LAST:event_botaoExcluirLivroMouseClicked
 
     private void botaoAlterarLivroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoAlterarLivroActionPerformed
@@ -615,7 +614,6 @@ public class FrmViewHome extends javax.swing.JFrame {
     }//GEN-LAST:event_botaoAlterarLivroActionPerformed
 
     private void botaoAlterarLivroMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botaoAlterarLivroMouseClicked
-        //recupera o departamento selecionado
         Controller<Books> controller = new Controller<Books>(Books.class, new BookDAO());
         if (livroSelecionado == null) {
             JOptionPane.showMessageDialog(this, "Objeto não encontrado!");
@@ -650,6 +648,13 @@ public class FrmViewHome extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_tabelaDeVisualizacaoLivrosFocusGained
 
+    private void setup() {
+        JFrameMaskUtil.customFormat(campoIncluirPreco,"R$ ", FieldType.CURRENCY,10);
+        JFrameMaskUtil.customFormat(campoPrecoLivro,"R$ ", FieldType.CURRENCY,10);
+        JFrameMaskUtil.customFormat(campoIncluirIsbn,"isbn", FieldType.POSITIVE_INTEGER,13);
+        JFrameMaskUtil.customFormat(campoIncluirTitulo,"", FieldType.LETTERS,60);
+    }
+
     /**
      * @param args the command line arguments
      */
@@ -661,6 +666,7 @@ public class FrmViewHome extends javax.swing.JFrame {
             }
         });
     }
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTabbedPane abaEdicao;

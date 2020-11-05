@@ -51,6 +51,5 @@ public class BookDAO extends DaoGenerico<Books>{
         resultSetOutput.getResultList();
         transaction.commit();
         session.close();
-
     }
 }

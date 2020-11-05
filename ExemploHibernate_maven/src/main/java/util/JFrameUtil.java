@@ -63,23 +63,4 @@ public class JFrameUtil<T> {
         }
         return modelo;
     }
-
-//    public DefaultTableModel carregarLivrosNaTabela(ArrayList<Books> listaDeLivros) {
-//        DefaultTableModel modelo = new DefaultTableModel();
-//        if (listaDeLivros != null && listaDeLivros.size() > 0) {
-//            for (Books books : listaDeLivros) {
-//                Object[][] dados = {
-//                        {
-//                                books.getTitle(),
-//                                books.getIsbn(),
-//                                books.getPublisherId(),
-//                                books.getPrice()
-//                        }
-//                };
-//                String[] colunas = {"title", "isbn", "publisher_id", "price"};
-//                modelo.setDataVector(dados,colunas);
-//            }
-//        }
-//        return modelo;
-//    }
 }

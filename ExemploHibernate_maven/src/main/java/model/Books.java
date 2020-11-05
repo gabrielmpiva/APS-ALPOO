@@ -4,19 +4,11 @@ import javax.persistence.*;
 
 @Entity
 public class Books {
-    /*
-    title CHAR(60),
-    isbn CHAR(13) PRIMARY KEY,
-    publisher_id INT,
-    price DECIMAL(10,2),
-     */
     private String  title;
+
     @Id
-    @Column(name = "isbn")
     private String  isbn;
-
     private Integer publisher_id;
-
     private Double price;
     public static final String ORDER_BY_TITLE = "title";
 
