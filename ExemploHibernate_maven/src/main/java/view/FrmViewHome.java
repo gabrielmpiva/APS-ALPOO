@@ -649,7 +649,7 @@ public class FrmViewHome extends javax.swing.JFrame {
         );
 
         pack();
-    }// </editor-fold>//GEN-END:initComponents
+    }
     
     
     private void AdicionarEditoras(java.awt.event.MouseEvent evt)
@@ -727,6 +727,12 @@ public class FrmViewHome extends javax.swing.JFrame {
                         .setModel(new JFrameUtil<Books>(Books.class, new BookDAO())
                                 .carregarLivrosNaTabela(new ArrayList<>(listaDeLivros)));
             }
+            if (abaVisualizacoes.getSelectedIndex() == 2) {
+                listaDeEditoras = new JFrameUtil<Publishers>(Publishers.class, new PublishersDAO()).carregarEditoras(listaDeEditoras);
+                tabelaDeVisualizacaoEditora
+                        .setModel(new JFrameUtil<Publishers>(Publishers.class, new PublishersDAO())
+                                .carregarEditorasNaTabela(new ArrayList<>(listaDeEditoras)));
+            }
         }
     }//GEN-LAST:event_abaPrincipalMouseClicked
 
@@ -743,6 +749,12 @@ public class FrmViewHome extends javax.swing.JFrame {
                 editorSelecionado = e;
                 textFieldNomeEditar.setText(editorSelecionado.getName().trim());
                 textFieldUrlEditar.setText(editorSelecionado.getUrl().trim());
+                
+                tabelaEditEditora
+                .setModel(new JFrameUtil<Publishers>(Publishers.class, new PublishersDAO())
+                    .carregarEditorasNaTabela(new ArrayList<>(Arrays.asList(editorSelecionado))));
+
+                tabelaEditEditora.getColumnModel().getColumn(0).setPreferredWidth(200);
                 
             }
         });
@@ -805,7 +817,7 @@ public class FrmViewHome extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "Editora não excluído");
             }
         } else {
-            JOptionPane.showMessageDialog(null, "Selecione um Editora para deleta-lo");
+            JOptionPane.showMessageDialog(null, "Selecione um Editora para deleta-la");
         }
     }
     private void botaoAlterarLivroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoAlterarLivroActionPerformed

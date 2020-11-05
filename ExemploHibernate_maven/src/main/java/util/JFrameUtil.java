@@ -78,23 +78,22 @@ public class JFrameUtil<T> {
         }
         return modelo;
     }
-
-//    public DefaultTableModel carregarLivrosNaTabela(ArrayList<Books> listaDeLivros) {
-//        DefaultTableModel modelo = new DefaultTableModel();
-//        if (listaDeLivros != null && listaDeLivros.size() > 0) {
-//            for (Books books : listaDeLivros) {
-//                Object[][] dados = {
-//                        {
-//                                books.getTitle(),
-//                                books.getIsbn(),
-//                                books.getPublisherId(),
-//                                books.getPrice()
-//                        }
-//                };
-//                String[] colunas = {"title", "isbn", "publisher_id", "price"};
-//                modelo.setDataVector(dados,colunas);
-//            }
-//        }
-//        return modelo;
-//    }
+    
+    
+    public DefaultTableModel carregarEditorasNaTabela(ArrayList<Publishers> listaDeEditoras) {
+        DefaultTableModel modelo = new DefaultTableModel();
+        modelo.addColumn("id");
+        modelo.addColumn("nome");
+        modelo.addColumn("url");
+        if (listaDeEditoras != null && listaDeEditoras.size() > 0) {
+            modelo.setNumRows(listaDeEditoras.size());
+            for (int i = 0; i < listaDeEditoras.size(); i++) {
+                    modelo.setValueAt(listaDeEditoras.get(i).getPublisherId(),i,0);
+                    modelo.setValueAt(listaDeEditoras.get(i).getName(),i,1);
+                    modelo.setValueAt(listaDeEditoras.get(i).getUrl(),i,2);
+                    
+            }
+        }
+        return modelo;
+    }
 }
