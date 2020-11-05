@@ -143,11 +143,6 @@ public class FrmViewHome extends javax.swing.JFrame {
                 botaoAlterarLivroMouseClicked(evt);
             }
         });
-        botaoAlterarLivro.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botaoAlterarLivroActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout livrosPainelEditarLayout = new javax.swing.GroupLayout(livrosPainelEditar);
         livrosPainelEditar.setLayout(livrosPainelEditarLayout);
@@ -187,11 +182,6 @@ public class FrmViewHome extends javax.swing.JFrame {
         botaoIncluirLivro.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 botaoIncluirLivroMouseClicked(evt);
-            }
-        });
-        botaoIncluirLivro.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botaoIncluirLivroActionPerformed(evt);
             }
         });
 
@@ -396,11 +386,6 @@ public class FrmViewHome extends javax.swing.JFrame {
 
             }
         ));
-        tabelaDeVisualizacaoLivros.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                tabelaDeVisualizacaoLivrosFocusGained(evt);
-            }
-        });
         jScrollPane1.setViewportView(tabelaDeVisualizacaoLivros);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -570,10 +555,6 @@ public class FrmViewHome extends javax.swing.JFrame {
         });
     }//GEN-LAST:event_seletorIncluirAutorActionPerformed
 
-    private void botaoIncluirLivroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoIncluirLivroActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_botaoIncluirLivroActionPerformed
-
     private void botaoIncluirLivroMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botaoIncluirLivroMouseClicked
 
         String parse = campoIncluirPreco.getText().replace(JFrameMaskUtil.CURRENCY_FORMAT,"");
@@ -618,10 +599,6 @@ public class FrmViewHome extends javax.swing.JFrame {
         carregarLivros();
     }//GEN-LAST:event_botaoExcluirLivroMouseClicked
 
-    private void botaoAlterarLivroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoAlterarLivroActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_botaoAlterarLivroActionPerformed
-
     private void botaoAlterarLivroMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botaoAlterarLivroMouseClicked
         Controller<Books> controller = new Controller<Books>(Books.class, new BookDAO());
         String parse = campoAlterarPrecoLivro.getText().replace(JFrameMaskUtil.CURRENCY_FORMAT,"");
@@ -655,10 +632,6 @@ public class FrmViewHome extends javax.swing.JFrame {
         });
 
     }//GEN-LAST:event_seletorLivrosActionPerformed
-
-    private void tabelaDeVisualizacaoLivrosFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tabelaDeVisualizacaoLivrosFocusGained
-        // TODO add your handling code here:
-    }//GEN-LAST:event_tabelaDeVisualizacaoLivrosFocusGained
 
     private void setup() {
         JFrameMaskUtil.customFormat(campoIncluirPreco,"R$ ", FieldType.CURRENCY,10);

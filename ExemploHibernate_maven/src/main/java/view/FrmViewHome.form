@@ -264,7 +264,6 @@
                               </Properties>
                               <Events>
                                 <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="botaoAlterarLivroMouseClicked"/>
-                                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botaoAlterarLivroActionPerformed"/>
                               </Events>
                             </Component>
                           </SubComponents>
@@ -331,7 +330,6 @@
                                   </Properties>
                                   <Events>
                                     <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="botaoIncluirLivroMouseClicked"/>
-                                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botaoIncluirLivroActionPerformed"/>
                                   </Events>
                                 </Component>
                                 <Container class="javax.swing.JPanel" name="jPanel10">
@@ -595,9 +593,6 @@
                               <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
                             </Property>
                           </Properties>
-                          <Events>
-                            <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="tabelaDeVisualizacaoLivrosFocusGained"/>
-                          </Events>
                         </Component>
                       </SubComponents>
                     </Container>
