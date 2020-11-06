@@ -736,9 +736,9 @@ public class FrmViewHome extends javax.swing.JFrame {
     private void carregarAutores() {
         listaDeAutores = new ArrayList<>();
         listaDeAutores = new JFrameUtil<Authors>(Authors.class, new AuthorsDAO()).carregarAutores(listaDeAutores);
-        seletorEditoraLivros.removeAllItems();
+        seletorAutores.removeAllItems();
         for (Authors a : listaDeAutores) {
-            seletorEditoraLivros.addItem(a.getFullName());
+            seletorAutores.addItem(a.getFullName());
         }
         
         if (listaDeAutores.size() == 0) {
@@ -772,9 +772,9 @@ public class FrmViewHome extends javax.swing.JFrame {
     }//GEN-LAST:event_seletorEditoraLivrosActionPerformed
 
     private void botaoIncluirLivroMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botaoIncluirLivroMouseClicked
-
         String parsePreco = campoIncluirPreco.getText().replace(JFrameMaskUtil.CURRENCY_FORMAT,"");
         String parseIsbn = campoIncluirIsbn.getText().replace("isbn","");
+
         boolean camposInValidos = campoIncluirTitulo.getText().isEmpty() ||
         campoIncluirPreco.getText().isEmpty() ||
         campoIncluirIsbn.getText().isEmpty() ||
@@ -784,22 +784,32 @@ public class FrmViewHome extends javax.swing.JFrame {
         if (camposInValidos){
             JOptionPane.showMessageDialog(this, "Existem campos vazios");
         } else {
+            boolean isbnExistente = false;
+            for (Books b : listaDeLivros) {
+                isbnExistente = b.getIsbn().replaceAll(" ","").equals(campoIncluirIsbn.getText());
+                if (isbnExistente){
+                    JOptionPane.showMessageDialog(this, "Isbn já resgistrado!");
+                    campoIncluirIsbn.setText("isbn");
+                    break;
+                }
+            }
+            if (!isbnExistente) {
+                livroSelecionado = new Books();
+                livroSelecionado.setTitle(campoIncluirTitulo.getText());
+                livroSelecionado.setIsbn(campoIncluirIsbn.getText());
+                livroSelecionado.setPublisherId(editoraDelivroSelecionado.getPublisherId());
+                livroSelecionado.setPrice(Double.parseDouble(parsePreco));
 
-            livroSelecionado = new Books();
-            livroSelecionado.setTitle(campoIncluirTitulo.getText());
-            livroSelecionado.setIsbn(campoIncluirIsbn.getText());
-            livroSelecionado.setPublisherId(editoraDelivroSelecionado.getPublisherId());
-            livroSelecionado.setPrice(Double.parseDouble(parsePreco));
+                int retorno = new Controller<Books>(Books.class, new BookDAO()).gravarDados(livroSelecionado);
 
-            int retorno = new Controller<Books>(Books.class, new BookDAO()).gravarDados(livroSelecionado);
-
-            if (retorno == 1) {
-                JOptionPane.showMessageDialog(this, "Livro adicionado!");
-                carregarLivros();
-            } else if (retorno == 2) {
-                JOptionPane.showMessageDialog(this, "Livro não adicionado");
-            } else {
-                JOptionPane.showMessageDialog(this, "Livro já existe");
+                if (retorno == 1) {
+                    JOptionPane.showMessageDialog(this, "Livro adicionado!");
+                    carregarLivros();
+                } else if (retorno == 2) {
+                    JOptionPane.showMessageDialog(this, "Livro não adicionado");
+                } else {
+                    JOptionPane.showMessageDialog(this, "Livro já existe");
+                }
             }
         }
     }//GEN-LAST:event_botaoIncluirLivroMouseClicked
@@ -860,7 +870,7 @@ public class FrmViewHome extends javax.swing.JFrame {
 
     private void seletorAutoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_seletorAutoresActionPerformed
         listaDeAutores.forEach((e) -> {
-            if (e.getFullName() == seletorAutores.getSelectedItem()) {
+            if (e.getFullName().equals(seletorAutores.getSelectedItem())) {
                 autorSelecionado = e;
                 tabelaEditAutor
                         .setModel(new JFrameUtil<Authors>(Authors.class, new AuthorsDAO())

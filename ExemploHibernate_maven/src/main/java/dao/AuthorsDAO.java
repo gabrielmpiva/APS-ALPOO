@@ -33,22 +33,4 @@ public class AuthorsDAO extends DaoGenerico<Authors>{
         transaction.commit();
         session.close();
     }
-
-    @Override
-    public void excluir(Object obj) throws HibernateException {
-        Session session = getHibernateConfiguracao().openSession();
-        Transaction transaction = session.beginTransaction();
-
-        Authors author = (Authors) obj;
-        ProcedureCall procedureCall = session.createStoredProcedureCall("deletar_autor");
-        procedureCall.registerParameter("this_id", String.class, ParameterMode.IN);
-        procedureCall.getParameterRegistration("this_id").bindValue(author.getAuthorId());
-
-        ProcedureOutputs procedureOutputs = procedureCall.getOutputs();
-        ResultSetOutput resultSetOutput = (ResultSetOutput) procedureOutputs.getCurrent();
-
-        resultSetOutput.getResultList();
-        transaction.commit();
-        session.close();
-    }
 }
