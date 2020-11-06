@@ -48,7 +48,7 @@ public class JFrameUtil<T> {
 
     public ArrayList<Publishers> carregarEditoras(ArrayList<Publishers> listaDeEditoras) {
 
-    	  List<Object> Livros = new ArrayList<>();
+    	  List Livros = new ArrayList<>();
           listaDeEditoras = new ArrayList<>();
 
           Livros = controller.carregarTodosDados(Publishers.ORDER_BY_NAME);

@@ -348,7 +348,7 @@
                                               <Group type="102" alignment="1" attributes="0">
                                                   <Component id="labelIncluirAutor" min="-2" max="-2" attributes="0"/>
                                                   <EmptySpace max="32767" attributes="0"/>
-                                                  <Component id="seletorIncluirAutor" min="-2" pref="206" max="-2" attributes="0"/>
+                                                  <Component id="seletorEditoraLivros" min="-2" pref="206" max="-2" attributes="0"/>
                                               </Group>
                                               <Group type="102" alignment="1" attributes="0">
                                                   <Group type="103" groupAlignment="0" attributes="0">
@@ -383,7 +383,7 @@
                                           </Group>
                                           <EmptySpace min="-2" max="-2" attributes="0"/>
                                           <Group type="103" groupAlignment="3" attributes="0">
-                                              <Component id="seletorIncluirAutor" alignment="3" min="-2" max="-2" attributes="0"/>
+                                              <Component id="seletorEditoraLivros" alignment="3" min="-2" max="-2" attributes="0"/>
                                               <Component id="labelIncluirAutor" alignment="3" min="-2" max="-2" attributes="0"/>
                                           </Group>
                                           <EmptySpace min="-2" max="-2" attributes="0"/>
@@ -417,17 +417,17 @@
                                 </Component>
                                 <Component class="javax.swing.JLabel" name="labelIncluirAutor">
                                   <Properties>
-                                    <Property name="text" type="java.lang.String" value="Autor"/>
+                                    <Property name="text" type="java.lang.String" value="Editora"/>
                                   </Properties>
                                 </Component>
-                                <Component class="javax.swing.JComboBox" name="seletorIncluirAutor">
+                                <Component class="javax.swing.JComboBox" name="seletorEditoraLivros">
                                   <Properties>
                                     <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
                                       <StringArray count="0"/>
                                     </Property>
                                   </Properties>
                                   <Events>
-                                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="seletorIncluirAutorActionPerformed"/>
+                                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="seletorEditoraLivrosActionPerformed"/>
                                   </Events>
                                   <AuxValues>
                                     <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>

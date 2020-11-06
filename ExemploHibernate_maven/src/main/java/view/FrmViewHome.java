@@ -19,6 +19,7 @@ import javax.swing.table.DefaultTableModel;
 
 import dao.AuthorsDAO;
 import dao.BookDAO;
+import dao.PublishersDAO;
 import enums.FieldType;
 import model.Authors;
 import model.Books;
@@ -36,7 +37,7 @@ public class FrmViewHome extends javax.swing.JFrame {
     ArrayList<Authors> listaDeAutores = new ArrayList<>();
     private ArrayList<Publishers> listaDeEditoras = new ArrayList<>();
     Books livroSelecionado;
-    Authors autorSelecionado;
+    private Publishers editoraDelivroSelecionado;
     private Publishers editorSelecionado;
 
     /** Creates new form FrmManterDepartamento */
@@ -79,7 +80,7 @@ public class FrmViewHome extends javax.swing.JFrame {
         campoIncluirIsbn = new javax.swing.JTextField();
         labelIsbn = new javax.swing.JLabel();
         labelIncluirAutor = new javax.swing.JLabel();
-        seletorIncluirAutor = new javax.swing.JComboBox<>();
+        seletorEditoraLivros = new javax.swing.JComboBox<>();
         campoIncluirPreco = new javax.swing.JTextField();
         labelIncluirPreco = new javax.swing.JLabel();
         botaoIncluirLivro = new javax.swing.JButton();
@@ -203,11 +204,11 @@ public class FrmViewHome extends javax.swing.JFrame {
 
         labelIsbn.setText("Isbn");
 
-        labelIncluirAutor.setText("Autor");
+        labelIncluirAutor.setText("Editora");
 
-        seletorIncluirAutor.addActionListener(new java.awt.event.ActionListener() {
+        seletorEditoraLivros.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                seletorIncluirAutorActionPerformed(evt);
+                seletorEditoraLivrosActionPerformed(evt);
             }
         });
 
@@ -234,7 +235,7 @@ public class FrmViewHome extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
                         .addComponent(labelIncluirAutor)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(seletorIncluirAutor, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(seletorEditoraLivros, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(labelIsbn)
@@ -260,7 +261,7 @@ public class FrmViewHome extends javax.swing.JFrame {
                     .addComponent(labelIsbn))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(seletorIncluirAutor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(seletorEditoraLivros, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(labelIncluirAutor))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -521,9 +522,18 @@ public class FrmViewHome extends javax.swing.JFrame {
 
     private void carregarAutores() {
         listaDeAutores = new JFrameUtil<Authors>(Authors.class, new AuthorsDAO()).carregarAutores(listaDeAutores);
-        seletorIncluirAutor.removeAllItems();
+        seletorEditoraLivros.removeAllItems();
         for (Authors a : listaDeAutores) {
-            seletorIncluirAutor.addItem(a.getFullName());
+            seletorEditoraLivros.addItem(a.getFullName());
+        }
+    }
+
+    private void carregarEditoras() {
+        listaDeEditoras = new JFrameUtil<Publishers>(Publishers.class, new PublishersDAO()).carregarEditoras(listaDeEditoras);
+
+        seletorEditoraLivros.removeAllItems();
+        for (Publishers b : listaDeEditoras) {
+            seletorEditoraLivros.addItem(b.getName());
         }
     }
 
@@ -531,15 +541,16 @@ public class FrmViewHome extends javax.swing.JFrame {
         carregarLivros();
         carregarAutores();
         configMascaras();
+        carregarEditoras();
     }//GEN-LAST:event_formWindowOpened
 
-    private void seletorIncluirAutorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_seletorIncluirAutorActionPerformed
-        listaDeAutores.forEach((e) -> {
-            if (e.getFullName().equals(seletorIncluirAutor.getSelectedItem())) {
-                autorSelecionado = e;
+    private void seletorEditoraLivrosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_seletorEditoraLivrosActionPerformed
+        listaDeEditoras.forEach((e) -> {
+            if (e.getName().equals(seletorEditoraLivros.getSelectedItem())) {
+                editoraDelivroSelecionado = e;
             }
         });
-    }//GEN-LAST:event_seletorIncluirAutorActionPerformed
+    }//GEN-LAST:event_seletorEditoraLivrosActionPerformed
 
     private void botaoIncluirLivroMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botaoIncluirLivroMouseClicked
 
@@ -550,7 +561,7 @@ public class FrmViewHome extends javax.swing.JFrame {
         campoIncluirIsbn.getText().isEmpty() ||
                 parsePreco.isEmpty() ||
                 parseIsbn.isEmpty() ||
-        seletorIncluirAutor.getSelectedItem() == null;
+        seletorEditoraLivros.getSelectedItem() == null;
         if (camposInValidos){
             JOptionPane.showMessageDialog(this, "Existem campos vazios");
         } else {
@@ -558,7 +569,7 @@ public class FrmViewHome extends javax.swing.JFrame {
             livroSelecionado = new Books();
             livroSelecionado.setTitle(campoIncluirTitulo.getText());
             livroSelecionado.setIsbn(campoIncluirIsbn.getText());
-            livroSelecionado.setPublisherId(autorSelecionado.getAuthorId());
+            livroSelecionado.setPublisherId(editoraDelivroSelecionado.getPublisherId());
             livroSelecionado.setPrice(Double.parseDouble(parsePreco));
 
             int retorno = new Controller<Books>(Books.class, new BookDAO()).gravarDados(livroSelecionado);
@@ -684,8 +695,8 @@ public class FrmViewHome extends javax.swing.JFrame {
     private javax.swing.JPanel livrosPainelIncluirDeletar;
     private javax.swing.JRadioButton radioButtomAutores;
     private javax.swing.JRadioButton radioButtomLivros;
+    private javax.swing.JComboBox<String> seletorEditoraLivros;
     private javax.swing.JComboBox<String> seletorFiltroEditora;
-    private javax.swing.JComboBox<String> seletorIncluirAutor;
     private javax.swing.JComboBox<String> seletorLivros;
     private javax.swing.JTable tabelaEditLivro;
     private javax.swing.JTable tabelaPesquisa;
