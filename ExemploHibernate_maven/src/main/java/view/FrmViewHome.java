@@ -3,11 +3,7 @@
  * and open the template in the editor.
  */
 
-/*
- * FrmViewHome.java
- *
- * Created on May 22, 2009, 10:50:36 AM
- */
+
 package view;
 
 import control.Controller;
@@ -27,10 +23,7 @@ import model.Publishers;
 import util.JFrameMaskUtil;
 import util.JFrameUtil;
 
-/**
- *
- * @author elio
- */
+
 public class FrmViewHome extends javax.swing.JFrame {
     //declaracao dos atributos
     ArrayList<Books> listaDeLivros = new ArrayList<>();
@@ -215,12 +208,6 @@ public class FrmViewHome extends javax.swing.JFrame {
         jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder("Incluir novo livro"));
 
         labelIncluirTitulo.setText("Titulo");
-
-        campoIncluirTitulo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                campoIncluirTituloActionPerformed(evt);
-            }
-        });
 
         labelIsbn.setText("Isbn");
 
@@ -455,12 +442,6 @@ public class FrmViewHome extends javax.swing.JFrame {
 
         labelIncluirNome.setText("Nome");
 
-        campoIncluirNome.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                campoIncluirNomeActionPerformed(evt);
-            }
-        });
-
         labelIncluirSobrenome.setText("Sobrenome");
 
         botaoIncluirAutor.setText("Incluir");
@@ -521,7 +502,6 @@ public class FrmViewHome extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        jPanel9.getAccessibleContext().setAccessibleName("Incluir novo autor");
         jPanel9.getAccessibleContext().setAccessibleDescription("Incluir novo autor");
 
         autorAbas.addTab("Incluir", autorPainelIncluirDeletar);
@@ -864,10 +844,6 @@ public class FrmViewHome extends javax.swing.JFrame {
 
     }//GEN-LAST:event_seletorLivrosActionPerformed
 
-    private void campoIncluirTituloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoIncluirTituloActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_campoIncluirTituloActionPerformed
-
     private void seletorAutoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_seletorAutoresActionPerformed
         listaDeAutores.forEach((e) -> {
             if (e.getFullName().equals(seletorAutores.getSelectedItem())) {
@@ -917,10 +893,6 @@ public class FrmViewHome extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Selecione um autor!");
         }
     }//GEN-LAST:event_botaoAlterarAutorMouseClicked
-
-    private void campoIncluirNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoIncluirNomeActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_campoIncluirNomeActionPerformed
 
     private void botaoIncluirAutorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botaoIncluirAutorMouseClicked
         

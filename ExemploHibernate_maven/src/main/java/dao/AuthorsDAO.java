@@ -1,6 +1,5 @@
 package dao;
 
-import javax.persistence.ParameterMode;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaUpdate;
 import javax.persistence.criteria.Root;
@@ -8,9 +7,6 @@ import model.Authors;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-import org.hibernate.procedure.ProcedureCall;
-import org.hibernate.procedure.ProcedureOutputs;
-import org.hibernate.result.ResultSetOutput;
 
 public class AuthorsDAO extends DaoGenerico<Authors>{
     
