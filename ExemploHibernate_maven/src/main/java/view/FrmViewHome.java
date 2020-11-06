@@ -61,6 +61,7 @@ public class FrmViewHome extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        grupoLivrosAutores = new javax.swing.ButtonGroup();
         abaPrincipal = new javax.swing.JTabbedPane();
         jPanel3 = new javax.swing.JPanel();
         abaEdicao = new javax.swing.JTabbedPane();
@@ -91,17 +92,16 @@ public class FrmViewHome extends javax.swing.JFrame {
         botaoExcluirLivro = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
         jPanel6 = new javax.swing.JPanel();
-        jPanel4 = new javax.swing.JPanel();
-        abaVisualizacoes = new javax.swing.JTabbedPane();
-        jPanel1 = new javax.swing.JPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        tabelaDeVisualizacaoLivros = new javax.swing.JTable();
         jPanel7 = new javax.swing.JPanel();
+        jPanel11 = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
+        seletorFiltroEditora = new javax.swing.JComboBox<>();
+        radioButtomLivros = new javax.swing.JRadioButton();
+        radioButtomAutores = new javax.swing.JRadioButton();
+        botaoBuscar = new javax.swing.JButton();
+        jPanel12 = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
-        tabelaDeVisualizacaoAutores = new javax.swing.JTable();
-        jPanel8 = new javax.swing.JPanel();
-        jScrollPane4 = new javax.swing.JScrollPane();
-        tabelaDeVisualizacaoEditora = new javax.swing.JTable();
+        tabelaPesquisa = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -110,12 +110,6 @@ public class FrmViewHome extends javax.swing.JFrame {
             }
             public void windowOpened(java.awt.event.WindowEvent evt) {
                 formWindowOpened(evt);
-            }
-        });
-
-        abaPrincipal.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                abaPrincipalMouseClicked(evt);
             }
         });
 
@@ -356,137 +350,16 @@ public class FrmViewHome extends javax.swing.JFrame {
 
         abaEdicao.addTab("Autor", jPanel5);
 
-        EditoraAbas_1 = new JTabbedPane();
-
-        botaoExcluirEditora = new JButton();
-        botaoExcluirEditora.addMouseListener(new MouseAdapter() {
-        	@Override
-        	public void mouseClicked(MouseEvent e) {
-        		botaoExcluirEditoraMouseClicked(e);
-        	}
-        });
-        botaoExcluirEditora.setText("Excluir");
-
-        jScrollPane2_1 = new JScrollPane();
-
-        jLabel1_1 = new JLabel();
-        jLabel1_1.setText("Editora selecionada:");
-
-        seletorEditoras = new JComboBox<String>();
-        seletorEditoras.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
-        		seletorIncluirEditoraActionPerformed(e);
-        	}
-        });
-
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
+        jPanel6.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
-        	jPanel6Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-        		.addGroup(jPanel6Layout.createSequentialGroup()
-        			.addContainerGap()
-        			.addGroup(jPanel6Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-        				.addGroup(jPanel6Layout.createSequentialGroup()
-        					.addComponent(jLabel1_1, GroupLayout.PREFERRED_SIZE, 107, GroupLayout.PREFERRED_SIZE)
-        					.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-        					.addComponent(seletorEditoras, GroupLayout.PREFERRED_SIZE, 195, GroupLayout.PREFERRED_SIZE))
-        				.addComponent(jScrollPane2_1, GroupLayout.PREFERRED_SIZE, 415, GroupLayout.PREFERRED_SIZE)
-        				.addGroup(jPanel6Layout.createSequentialGroup()
-        					.addGap(288)
-        					.addComponent(botaoExcluirEditora, GroupLayout.PREFERRED_SIZE, 127, GroupLayout.PREFERRED_SIZE))
-        				.addGroup(jPanel6Layout.createSequentialGroup()
-        					.addGap(2)
-        					.addComponent(EditoraAbas_1, GroupLayout.PREFERRED_SIZE, 439, GroupLayout.PREFERRED_SIZE)))
-        			.addContainerGap(144, Short.MAX_VALUE))
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
         jPanel6Layout.setVerticalGroup(
-        	jPanel6Layout.createParallelGroup(GroupLayout.Alignment.TRAILING)
-        		.addGroup(jPanel6Layout.createSequentialGroup()
-        			.addContainerGap(29, Short.MAX_VALUE)
-        			.addGroup(jPanel6Layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-        				.addComponent(jLabel1_1)
-        				.addComponent(seletorEditoras, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-        			.addGap(15)
-        			.addComponent(jScrollPane2_1, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE)
-        			.addGap(11)
-        			.addComponent(botaoExcluirEditora)
-        			.addGap(6)
-        			.addComponent(EditoraAbas_1, GroupLayout.PREFERRED_SIZE, 202, GroupLayout.PREFERRED_SIZE)
-        			.addGap(19))
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
-
-        editorasPainelEditar = new JPanel();
-        editorasPainelEditar.setBorder(new TitledBorder(null, "Editar valores", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-        EditoraAbas_1.addTab("Editar", null, editorasPainelEditar, null);
-        editorasPainelEditar.setLayout(null);
-
-        JLabel labelNomeAlterar = new JLabel();
-        labelNomeAlterar.setText("Nome");
-        labelNomeAlterar.setBounds(20, 43, 239, 14);
-        editorasPainelEditar.add(labelNomeAlterar);
-
-        JLabel labelUrlAlterar = new JLabel();
-        labelUrlAlterar.setText("Url");
-        labelUrlAlterar.setBounds(20, 69, 239, 14);
-        editorasPainelEditar.add(labelUrlAlterar);
-
-        JButton btnAlterar = new JButton();
-        btnAlterar.addMouseListener(new MouseAdapter() {
-        	@Override
-        	public void mouseClicked(MouseEvent e) {
-        		botaoAlterarEditoraMouseClicked(e);
-        	}
-        });
-        btnAlterar.setText("Alterar");
-        btnAlterar.setBounds(57, 104, 202, 23);
-        editorasPainelEditar.add(btnAlterar);
-
-        textFieldUrlEditar = new JTextField();
-        textFieldUrlEditar.setBounds(57, 66, 202, 20);
-        editorasPainelEditar.add(textFieldUrlEditar);
-
-        textFieldNomeEditar = new JTextField();
-        textFieldNomeEditar.setBounds(57, 40, 202, 20);
-        editorasPainelEditar.add(textFieldNomeEditar);
-
-        editorasPainelIncluir = new JPanel();
-        editorasPainelIncluir.setBorder(new TitledBorder(null, "Incluir valores", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-        EditoraAbas_1.addTab("Incluir", null, editorasPainelIncluir, null);
-        editorasPainelIncluir.setLayout(null);
-
-        JLabel labelNome_1 = new JLabel();
-        labelNome_1.setText("Nome");
-        labelNome_1.setBounds(10, 32, 239, 14);
-        editorasPainelIncluir.add(labelNome_1);
-
-        JLabel labelPreco_1 = new JLabel();
-        labelPreco_1.setText("Url");
-        labelPreco_1.setBounds(10, 58, 239, 14);
-        editorasPainelIncluir.add(labelPreco_1);
-
-
-
-        textFieldIncluirUrl = new JTextField();
-        textFieldIncluirUrl.setBounds(47, 55, 202, 20);
-        editorasPainelIncluir.add(textFieldIncluirUrl);
-
-        textFieldIncluirNome = new JTextField();
-        textFieldIncluirNome.setBounds(47, 29, 202, 20);
-        editorasPainelIncluir.add(textFieldIncluirNome);
-
-
-        JButton botaoIncluirEditora = new JButton();
-        botaoIncluirEditora.addMouseListener(new java.awt.event.MouseAdapter() {
-        	@Override
-        	public void mouseClicked(java.awt.event.MouseEvent e) {
-        		AdicionarEditoras(e);
-        	}});
-        botaoIncluirEditora.setText("Incluir");
-        botaoIncluirEditora.setBounds(47, 93, 202, 23);
-        editorasPainelIncluir.add(botaoIncluirEditora);
-
-        tabelaEditEditora = new JTable();
-        jScrollPane2_1.setViewportView(tabelaEditEditora);
-        jPanel6.setLayout(jPanel6Layout);
 
         abaEdicao.addTab("Editora", jPanel6);
 
@@ -509,7 +382,60 @@ public class FrmViewHome extends javax.swing.JFrame {
 
         abaPrincipal.addTab("Editar", jPanel3);
 
-        tabelaDeVisualizacaoLivros.setModel(new javax.swing.table.DefaultTableModel(
+        jPanel11.setBorder(javax.swing.BorderFactory.createTitledBorder("Filtro de busca"));
+
+        jLabel2.setText("Selecione a editora");
+
+        grupoLivrosAutores.add(radioButtomLivros);
+        radioButtomLivros.setText("Livros");
+
+        grupoLivrosAutores.add(radioButtomAutores);
+        radioButtomAutores.setText("Autores");
+
+        botaoBuscar.setText("Buscar");
+
+        javax.swing.GroupLayout jPanel11Layout = new javax.swing.GroupLayout(jPanel11);
+        jPanel11.setLayout(jPanel11Layout);
+        jPanel11Layout.setHorizontalGroup(
+            jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel11Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel11Layout.createSequentialGroup()
+                        .addComponent(radioButtomLivros)
+                        .addGap(30, 30, 30)
+                        .addComponent(radioButtomAutores)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(botaoBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel11Layout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(seletorFiltroEditora, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
+        );
+        jPanel11Layout.setVerticalGroup(
+            jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel11Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel11Layout.createSequentialGroup()
+                        .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel2)
+                            .addComponent(seletorFiltroEditora, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(radioButtomLivros)
+                            .addComponent(radioButtomAutores)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel11Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(botaoBuscar)))
+                .addGap(8, 8, 8))
+        );
+
+        jPanel12.setBorder(javax.swing.BorderFactory.createTitledBorder("Resultado da pesquisa"));
+
+        tabelaPesquisa.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -517,36 +443,24 @@ public class FrmViewHome extends javax.swing.JFrame {
 
             }
         ));
-        jScrollPane1.setViewportView(tabelaDeVisualizacaoLivros);
+        jScrollPane3.setViewportView(tabelaPesquisa);
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        javax.swing.GroupLayout jPanel12Layout = new javax.swing.GroupLayout(jPanel12);
+        jPanel12.setLayout(jPanel12Layout);
+        jPanel12Layout.setHorizontalGroup(
+            jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel12Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 567, Short.MAX_VALUE)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 568, Short.MAX_VALUE)
                 .addContainerGap())
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        jPanel12Layout.setVerticalGroup(
+            jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel12Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1)
-                .addContainerGap())
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 329, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-
-        abaVisualizacoes.addTab("Livros", jPanel1);
-
-        tabelaDeVisualizacaoAutores.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-
-            }
-        ));
-        jScrollPane3.setViewportView(tabelaDeVisualizacaoAutores);
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
@@ -554,66 +468,22 @@ public class FrmViewHome extends javax.swing.JFrame {
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel7Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 567, Short.MAX_VALUE)
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel7Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 459, Short.MAX_VALUE)
+                .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jPanel12, javax.swing.GroupLayout.PREFERRED_SIZE, 371, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
-        abaVisualizacoes.addTab("Autores", jPanel7);
-
-        tabelaDeVisualizacaoEditora.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-
-            }
-        ));
-        jScrollPane4.setViewportView(tabelaDeVisualizacaoEditora);
-
-        javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
-        jPanel8.setLayout(jPanel8Layout);
-        jPanel8Layout.setHorizontalGroup(
-            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel8Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 567, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-        jPanel8Layout.setVerticalGroup(
-            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel8Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 459, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-
-        abaVisualizacoes.addTab("Editora", jPanel8);
-
-        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
-        jPanel4.setLayout(jPanel4Layout);
-        jPanel4Layout.setHorizontalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(abaVisualizacoes, javax.swing.GroupLayout.PREFERRED_SIZE, 592, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(18, Short.MAX_VALUE))
-        );
-        jPanel4Layout.setVerticalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(abaVisualizacoes)
-                .addContainerGap())
-        );
-
-        abaPrincipal.addTab("Visualizar", jPanel4);
+        abaPrincipal.addTab("Busca", jPanel7);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -649,43 +519,6 @@ public class FrmViewHome extends javax.swing.JFrame {
         }
     }
 
-    private void AdicionarEditoras(java.awt.event.MouseEvent evt)
-    {
-        boolean camposInValidos = textFieldIncluirNome.getText().isEmpty() ||
-                textFieldIncluirUrl.getText().isEmpty();
-        campoIncluirIsbn.getText().isEmpty();
-        if (camposInValidos){
-            JOptionPane.showMessageDialog(this, "Existem campos vazios");
-        } else {
-            Controller<Publishers> controller = new Controller<Publishers>(Publishers.class, new PublishersDAO());
-
-            Publishers novaEditora = new Publishers();
-            novaEditora.setName(textFieldIncluirNome.getText());
-            novaEditora.setUrl(textFieldIncluirUrl.getText());
-
-
-            int retorno = controller.gravarDados(novaEditora);
-
-            if (retorno == 1) {
-                JOptionPane.showMessageDialog(this, "Editora adicionadoa");
-                carregarEditoras();
-            } else if (retorno == 2) {
-                JOptionPane.showMessageDialog(this, "Editora não adicionado");
-            } else {
-                JOptionPane.showMessageDialog(this, "Editora já existe");
-            }
-            textFieldIncluirNome.setText("");
-            textFieldIncluirUrl.setText("");
-        }
-    }
-
-    private void carregarEditoras() {
-        listaDeEditoras = new JFrameUtil<Publishers>(Publishers.class, new PublishersDAO()).carregarEditoras(listaDeEditoras);
-        seletorEditoras.removeAllItems();
-        for (Publishers b : listaDeEditoras) {
-            seletorEditoras.addItem(b.getName());
-        }
-    }
 
     private void carregarAutores() {
         listaDeAutores = new JFrameUtil<Authors>(Authors.class, new AuthorsDAO()).carregarAutores(listaDeAutores);
@@ -700,28 +533,10 @@ public class FrmViewHome extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowActivated
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
-        carregarEditoras();
         carregarLivros();
         carregarAutores();
         setup();
     }//GEN-LAST:event_formWindowOpened
-
-    private void abaPrincipalMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_abaPrincipalMouseClicked
-        if (abaPrincipal.getSelectedIndex() == 1 ){
-            if (abaVisualizacoes.getSelectedIndex() == 0) {
-                listaDeLivros = new JFrameUtil<Books>(Books.class, new BookDAO()).carregarLivros(listaDeLivros);
-                tabelaDeVisualizacaoLivros
-                        .setModel(new JFrameUtil<Books>(Books.class, new BookDAO())
-                                .carregarLivrosNaTabela(new ArrayList<>(listaDeLivros)));
-            }
-            if (abaVisualizacoes.getSelectedIndex() == 2) {
-                listaDeEditoras = new JFrameUtil<Publishers>(Publishers.class, new PublishersDAO()).carregarEditoras(listaDeEditoras);
-                tabelaDeVisualizacaoEditora
-                        .setModel(new JFrameUtil<Publishers>(Publishers.class, new PublishersDAO())
-                                .carregarEditorasNaTabela(new ArrayList<>(listaDeEditoras)));
-            }
-        }
-    }//GEN-LAST:event_abaPrincipalMouseClicked
 
     private void seletorIncluirAutorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_seletorIncluirAutorActionPerformed
         listaDeAutores.forEach((e) -> {
@@ -730,23 +545,6 @@ public class FrmViewHome extends javax.swing.JFrame {
             }
         });
     }//GEN-LAST:event_seletorIncluirAutorActionPerformed
-
-    private void seletorIncluirEditoraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_seletorIncluirEditoraActionPerformed
-        listaDeEditoras.forEach((e) -> {
-            if (e.getName().equals(seletorEditoras.getSelectedItem())) {
-                editorSelecionado = e;
-                textFieldNomeEditar.setText(editorSelecionado.getName().trim());
-                textFieldUrlEditar.setText(editorSelecionado.getUrl().trim());
-
-                tabelaEditEditora
-                        .setModel(new JFrameUtil<Publishers>(Publishers.class, new PublishersDAO())
-                                .carregarEditorasNaTabela(new ArrayList<>(Arrays.asList(editorSelecionado))));
-
-                tabelaEditEditora.getColumnModel().getColumn(0).setPreferredWidth(200);
-
-            }
-        });
-    }//GEN-LAST:event_seletorIncluirEditoraActionPerformed
 
     private void botaoIncluirLivroMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botaoIncluirLivroMouseClicked
 
@@ -794,21 +592,6 @@ public class FrmViewHome extends javax.swing.JFrame {
         carregarLivros();
     }//GEN-LAST:event_botaoExcluirLivroMouseClicked
 
-    private void botaoExcluirEditoraMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botaoExcluirEditoraMouseClicked
-        // TODO add your handling code here:
-        if (editorSelecionado != null) {
-            Controller<Publishers> controller = new Controller<Publishers>(Publishers.class, new PublishersDAO());
-            if (controller.excluirDado(editorSelecionado)){
-                JOptionPane.showMessageDialog(null, "Editora Excluído");
-                carregarEditoras();
-            } else {
-                JOptionPane.showMessageDialog(null, "Editora não excluído");
-            }
-        } else {
-            JOptionPane.showMessageDialog(null, "Selecione um Editora para deleta-la");
-        }
-    }//GEN-LAST:event_botaoExcluirEditoraMouseClicked
-
     private void botaoAlterarLivroMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botaoAlterarLivroMouseClicked
         Controller<Books> controller = new Controller<Books>(Books.class, new BookDAO());
         String parse = campoAlterarPrecoLivro.getText().replace(JFrameMaskUtil.CURRENCY_FORMAT,"");
@@ -828,24 +611,6 @@ public class FrmViewHome extends javax.swing.JFrame {
         }
         carregarLivros();
     }//GEN-LAST:event_botaoAlterarLivroMouseClicked
-
-    private void botaoAlterarEditoraMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botaoAlterarEditoraMouseClicked
-        Controller<Publishers> controller = new Controller<Publishers>(Publishers.class, new PublishersDAO());
-        if (editorSelecionado == null) {
-            JOptionPane.showMessageDialog(this, "Objeto não encontrado!");
-        } else {
-            editorSelecionado.setName(textFieldNomeEditar.getText());
-            editorSelecionado.setUrl(textFieldUrlEditar.getText());
-
-            if (controller.alterarDado(editorSelecionado)) {
-                JOptionPane.showMessageDialog(this, "Objeto persistido");
-                carregarEditoras();
-            } else {
-                JOptionPane.showMessageDialog(this, "Objeto não persistido");
-            }
-        }
-        carregarLivros();
-    }//GEN-LAST:event_botaoAlterarEditoraMouseClicked
 
     private void seletorLivrosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_seletorLivrosActionPerformed
         listaDeLivros.forEach((e) -> {
@@ -883,8 +648,8 @@ public class FrmViewHome extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTabbedPane abaEdicao;
     private javax.swing.JTabbedPane abaPrincipal;
-    private javax.swing.JTabbedPane abaVisualizacoes;
     private javax.swing.JButton botaoAlterarLivro;
+    private javax.swing.JButton botaoBuscar;
     private javax.swing.JButton botaoExcluirLivro;
     private javax.swing.JButton botaoIncluirLivro;
     private javax.swing.JTextField campoAlterarPrecoLivro;
@@ -892,21 +657,20 @@ public class FrmViewHome extends javax.swing.JFrame {
     private javax.swing.JTextField campoIncluirIsbn;
     private javax.swing.JTextField campoIncluirPreco;
     private javax.swing.JTextField campoIncluirTitulo;
+    private javax.swing.ButtonGroup grupoLivrosAutores;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel10;
+    private javax.swing.JPanel jPanel11;
+    private javax.swing.JPanel jPanel12;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
-    private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JLabel labelIncluirAutor;
     private javax.swing.JLabel labelIncluirPreco;
     private javax.swing.JLabel labelIncluirTitulo;
@@ -916,23 +680,12 @@ public class FrmViewHome extends javax.swing.JFrame {
     private javax.swing.JTabbedPane livrosAbas;
     private javax.swing.JPanel livrosPainelEditar;
     private javax.swing.JPanel livrosPainelIncluirDeletar;
+    private javax.swing.JRadioButton radioButtomAutores;
+    private javax.swing.JRadioButton radioButtomLivros;
+    private javax.swing.JComboBox<String> seletorFiltroEditora;
     private javax.swing.JComboBox<String> seletorIncluirAutor;
     private javax.swing.JComboBox<String> seletorLivros;
-    private javax.swing.JTable tabelaDeVisualizacaoAutores;
-    private javax.swing.JTable tabelaDeVisualizacaoEditora;
-    private javax.swing.JTable tabelaDeVisualizacaoLivros;
     private javax.swing.JTable tabelaEditLivro;
-    private JTabbedPane EditoraAbas_1;
-    private JButton botaoExcluirEditora;
-    private JScrollPane jScrollPane2_1;
-    private JLabel jLabel1_1;
-    private JComboBox<String> seletorEditoras;
-    private JTable tabelaEditEditora;
-    private JPanel editorasPainelEditar;
-    private JPanel editorasPainelIncluir;
-    private JTextField textFieldIncluirUrl;
-    private JTextField textFieldIncluirNome;
-    private JTextField textFieldUrlEditar;
-    private JTextField textFieldNomeEditar;
+    private javax.swing.JTable tabelaPesquisa;
     // End of variables declaration//GEN-END:variables
 }
