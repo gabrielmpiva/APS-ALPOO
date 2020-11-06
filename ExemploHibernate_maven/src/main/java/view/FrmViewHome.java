@@ -513,6 +513,7 @@ public class FrmViewHome extends javax.swing.JFrame {
         }
 
         if (listaDeLivros.size() == 0) {
+            livroSelecionado = null;
             tabelaEditLivro.setModel(new DefaultTableModel());
         }
     }
@@ -587,23 +588,26 @@ public class FrmViewHome extends javax.swing.JFrame {
     }//GEN-LAST:event_botaoExcluirLivroMouseClicked
 
     private void botaoAlterarLivroMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botaoAlterarLivroMouseClicked
-        Controller<Books> controller = new Controller<Books>(Books.class, new BookDAO());
-        String parse = campoAlterarPrecoLivro.getText().replace(JFrameMaskUtil.CURRENCY_FORMAT,"");
-        if (livroSelecionado == null) {
-            JOptionPane.showMessageDialog(this, "Objeto não encontrado!");
-        } else if (campoAlterarTituloLivro.getText().isEmpty() || parse.isEmpty()){
-            JOptionPane.showMessageDialog(this, "Existem campos vazios!");
-        } else {
-            livroSelecionado.setTitle(campoAlterarTituloLivro.getText());
-            livroSelecionado.setPrice(Double.parseDouble(parse));
-
-            if (controller.alterarDado(livroSelecionado)) {
-                JOptionPane.showMessageDialog(this, "Objeto persistido");
+        if (livroSelecionado != null && seletorLivros.getSelectedItem() != null) {
+            String parse = campoAlterarPrecoLivro.getText().replace(JFrameMaskUtil.CURRENCY_FORMAT,"");
+            if (campoAlterarTituloLivro.getText().isEmpty() || parse.isEmpty()){
+                JOptionPane.showMessageDialog(this, "Existem campos vazios!");
             } else {
-                JOptionPane.showMessageDialog(this, "Objeto não persistido");
+                livroSelecionado.setTitle(campoAlterarTituloLivro.getText());
+                livroSelecionado.setPrice(Double.parseDouble(parse));
+
+                if (new Controller<Books>(Books.class, new BookDAO()).alterarDado(livroSelecionado)) {
+                    JOptionPane.showMessageDialog(this, "Objeto persistido");
+                } else {
+                    JOptionPane.showMessageDialog(this, "Objeto não persistido");
+                }
+
+                carregarLivros();
             }
+        } else {
+            JOptionPane.showMessageDialog(this, "Selecione um livro!");
         }
-        carregarLivros();
+
     }//GEN-LAST:event_botaoAlterarLivroMouseClicked
 
     private void seletorLivrosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_seletorLivrosActionPerformed
