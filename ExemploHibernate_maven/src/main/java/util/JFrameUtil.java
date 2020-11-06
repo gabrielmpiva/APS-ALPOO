@@ -76,7 +76,6 @@ public class JFrameUtil<T> {
         return modelo;
     }
 
-
     public DefaultTableModel carregarEditorasNaTabela(ArrayList<Publishers> listaDeEditoras) {
         DefaultTableModel modelo = new DefaultTableModel();
         modelo.addColumn("id");
@@ -89,6 +88,20 @@ public class JFrameUtil<T> {
                     modelo.setValueAt(listaDeEditoras.get(i).getName(),i,1);
                     modelo.setValueAt(listaDeEditoras.get(i).getUrl(),i,2);
 
+            }
+        }
+        return modelo;
+    }
+    
+    public DefaultTableModel carregarAutoresNaTabela(ArrayList<Authors> listaDeAutores) {
+        DefaultTableModel modelo = new DefaultTableModel();
+        modelo.addColumn("name");
+        modelo.addColumn("fname");
+        if (listaDeAutores != null && listaDeAutores.size() > 0) {
+            modelo.setNumRows(listaDeAutores.size());
+            for (int i = 0; i < listaDeAutores.size(); i++) {
+                    modelo.setValueAt(listaDeAutores.get(i).getName(),i,0);
+                    modelo.setValueAt(listaDeAutores.get(i).getfName(),i,1);
             }
         }
         return modelo;

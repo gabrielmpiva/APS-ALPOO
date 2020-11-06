@@ -37,6 +37,7 @@ public class FrmViewHome extends javax.swing.JFrame {
     ArrayList<Authors> listaDeAutores = new ArrayList<>();
     private ArrayList<Publishers> listaDeEditoras = new ArrayList<>();
     Books livroSelecionado;
+    private Authors autorSelecionado;
     private Publishers editoraDelivroSelecionado;
     private Publishers editorSelecionado;
 
@@ -86,6 +87,26 @@ public class FrmViewHome extends javax.swing.JFrame {
         botaoIncluirLivro = new javax.swing.JButton();
         botaoExcluirLivro = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
+        jLabel3 = new javax.swing.JLabel();
+        seletorAutores = new javax.swing.JComboBox<>();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        tabelaEditAutor = new javax.swing.JTable();
+        botaoExcluirAutor = new javax.swing.JButton();
+        autorAbas = new javax.swing.JTabbedPane();
+        autorPainelEditar = new javax.swing.JPanel();
+        jPanel8 = new javax.swing.JPanel();
+        labelNome = new javax.swing.JLabel();
+        labelSobrenome = new javax.swing.JLabel();
+        campoAlterarSobrenomeAutor = new javax.swing.JTextField();
+        campoAlterarNomeAutor = new javax.swing.JTextField();
+        botaoAlterarAutor = new javax.swing.JButton();
+        autorPainelIncluirDeletar = new javax.swing.JPanel();
+        jPanel9 = new javax.swing.JPanel();
+        labelIncluirNome = new javax.swing.JLabel();
+        campoIncluirNome = new javax.swing.JTextField();
+        campoIncluirSobrenome = new javax.swing.JTextField();
+        labelIncluirSobrenome = new javax.swing.JLabel();
+        botaoIncluirAutor = new javax.swing.JButton();
         jPanel6 = new javax.swing.JPanel();
         jPanel7 = new javax.swing.JPanel();
         jPanel11 = new javax.swing.JPanel();
@@ -115,7 +136,6 @@ public class FrmViewHome extends javax.swing.JFrame {
             }
         ));
         tabelaEditLivro.setColumnSelectionAllowed(true);
-        tabelaEditLivro.setShowGrid(true);
         jScrollPane2.setViewportView(tabelaEditLivro);
 
         jLabel1.setText("Livro selecionado:");
@@ -303,25 +323,24 @@ public class FrmViewHome extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(botaoExcluirLivro, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 415, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
-                                    .addComponent(jLabel1)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addComponent(seletorLivros, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGap(170, 170, 170))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addComponent(livrosAbas, javax.swing.GroupLayout.PREFERRED_SIZE, 445, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(138, 138, 138))))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(botaoExcluirLivro, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 415, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
+                            .addComponent(jLabel1)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(seletorLivros, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(170, 170, 170))
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(livrosAbas, javax.swing.GroupLayout.PREFERRED_SIZE, 445, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap(31, Short.MAX_VALUE)
+                .addContainerGap(33, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(seletorLivros, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -329,22 +348,216 @@ public class FrmViewHome extends javax.swing.JFrame {
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(botaoExcluirLivro)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(8, 8, 8)
                 .addComponent(livrosAbas, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(13, 13, 13))
+                .addContainerGap())
         );
 
         abaEdicao.addTab("Livros", jPanel2);
+
+        jLabel3.setText("Autor selecionado:");
+
+        seletorAutores.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                seletorAutoresActionPerformed(evt);
+            }
+        });
+
+        tabelaEditAutor.setAutoCreateRowSorter(true);
+        tabelaEditAutor.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+
+            }
+        ));
+        tabelaEditAutor.setColumnSelectionAllowed(true);
+        jScrollPane4.setViewportView(tabelaEditAutor);
+
+        botaoExcluirAutor.setText("Excluir");
+        botaoExcluirAutor.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                botaoExcluirAutorMouseClicked(evt);
+            }
+        });
+
+        autorPainelEditar.setToolTipText("");
+
+        jPanel8.setBorder(javax.swing.BorderFactory.createTitledBorder("Editar livro"));
+
+        labelNome.setText("Nome");
+
+        labelSobrenome.setText("Sobrenome");
+
+        botaoAlterarAutor.setText("Alterar");
+        botaoAlterarAutor.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                botaoAlterarAutorMouseClicked(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
+        jPanel8.setLayout(jPanel8Layout);
+        jPanel8Layout.setHorizontalGroup(
+            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel8Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(labelSobrenome)
+                    .addComponent(labelNome))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(campoAlterarNomeAutor)
+                    .addComponent(campoAlterarSobrenomeAutor, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(botaoAlterarAutor, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(145, Short.MAX_VALUE))
+        );
+        jPanel8Layout.setVerticalGroup(
+            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel8Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(campoAlterarNomeAutor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(labelNome))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(labelSobrenome)
+                    .addComponent(campoAlterarSobrenomeAutor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(botaoAlterarAutor)
+                .addContainerGap(31, Short.MAX_VALUE))
+        );
+
+        javax.swing.GroupLayout autorPainelEditarLayout = new javax.swing.GroupLayout(autorPainelEditar);
+        autorPainelEditar.setLayout(autorPainelEditarLayout);
+        autorPainelEditarLayout.setHorizontalGroup(
+            autorPainelEditarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, autorPainelEditarLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        autorPainelEditarLayout.setVerticalGroup(
+            autorPainelEditarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(autorPainelEditarLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        jPanel8.getAccessibleContext().setAccessibleName("");
+
+        autorAbas.addTab("Editar", autorPainelEditar);
+
+        jPanel9.setBorder(javax.swing.BorderFactory.createTitledBorder("Incluir novo livro"));
+        jPanel9.setToolTipText("");
+
+        labelIncluirNome.setText("Nome");
+
+        campoIncluirNome.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                campoIncluirNomeActionPerformed(evt);
+            }
+        });
+
+        labelIncluirSobrenome.setText("Sobrenome");
+
+        botaoIncluirAutor.setText("Incluir");
+        botaoIncluirAutor.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                botaoIncluirAutorMouseClicked(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
+        jPanel9.setLayout(jPanel9Layout);
+        jPanel9Layout.setHorizontalGroup(
+            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel9Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(botaoIncluirAutor, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel9Layout.createSequentialGroup()
+                        .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(labelIncluirSobrenome)
+                            .addComponent(labelIncluirNome))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(campoIncluirSobrenome, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(campoIncluirNome, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(145, Short.MAX_VALUE))
+        );
+        jPanel9Layout.setVerticalGroup(
+            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel9Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(campoIncluirNome)
+                    .addComponent(labelIncluirNome))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(campoIncluirSobrenome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(labelIncluirSobrenome))
+                .addGap(18, 18, 18)
+                .addComponent(botaoIncluirAutor)
+                .addGap(31, 31, 31))
+        );
+
+        javax.swing.GroupLayout autorPainelIncluirDeletarLayout = new javax.swing.GroupLayout(autorPainelIncluirDeletar);
+        autorPainelIncluirDeletar.setLayout(autorPainelIncluirDeletarLayout);
+        autorPainelIncluirDeletarLayout.setHorizontalGroup(
+            autorPainelIncluirDeletarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(autorPainelIncluirDeletarLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        autorPainelIncluirDeletarLayout.setVerticalGroup(
+            autorPainelIncluirDeletarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(autorPainelIncluirDeletarLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        jPanel9.getAccessibleContext().setAccessibleName("Incluir novo autor");
+        jPanel9.getAccessibleContext().setAccessibleDescription("Incluir novo autor");
+
+        autorAbas.addTab("Incluir", autorPainelIncluirDeletar);
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(botaoExcluirAutor, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel5Layout.createSequentialGroup()
+                                .addComponent(jLabel3)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(seletorAutores, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 415, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(autorAbas, javax.swing.GroupLayout.PREFERRED_SIZE, 445, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(140, Short.MAX_VALUE))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addGap(32, 32, 32)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(seletorAutores, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(botaoExcluirAutor)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(autorAbas, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         abaEdicao.addTab("Autor", jPanel5);
@@ -376,7 +589,7 @@ public class FrmViewHome extends javax.swing.JFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(abaEdicao, javax.swing.GroupLayout.PREFERRED_SIZE, 397, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(170, Short.MAX_VALUE))
+                .addContainerGap(83, Short.MAX_VALUE))
         );
 
         abaPrincipal.addTab("Editar", jPanel3);
@@ -521,10 +734,16 @@ public class FrmViewHome extends javax.swing.JFrame {
 
 
     private void carregarAutores() {
+        listaDeAutores = new ArrayList<>();
         listaDeAutores = new JFrameUtil<Authors>(Authors.class, new AuthorsDAO()).carregarAutores(listaDeAutores);
         seletorEditoraLivros.removeAllItems();
         for (Authors a : listaDeAutores) {
             seletorEditoraLivros.addItem(a.getFullName());
+        }
+        
+        if (listaDeAutores.size() == 0) {
+            autorSelecionado = null;
+            tabelaEditAutor.setModel(new DefaultTableModel());
         }
     }
 
@@ -639,11 +858,95 @@ public class FrmViewHome extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_campoIncluirTituloActionPerformed
 
+    private void seletorAutoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_seletorAutoresActionPerformed
+        listaDeAutores.forEach((e) -> {
+            if (e.getFullName() == seletorAutores.getSelectedItem()) {
+                autorSelecionado = e;
+                tabelaEditAutor
+                        .setModel(new JFrameUtil<Authors>(Authors.class, new AuthorsDAO())
+                                .carregarAutoresNaTabela(new ArrayList<>(Arrays.asList(autorSelecionado))));
+
+                tabelaEditAutor.getColumnModel().getColumn(0).setPreferredWidth(200);
+            }
+        });
+    }//GEN-LAST:event_seletorAutoresActionPerformed
+
+    private void botaoExcluirAutorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botaoExcluirAutorMouseClicked
+        if (autorSelecionado != null && seletorAutores.getSelectedItem() != null) {
+            if (new Controller<Authors>(Authors.class, new AuthorsDAO()).excluirDado(autorSelecionado)){
+                JOptionPane.showMessageDialog(null, "Autor Excluído");
+            } else {
+                JOptionPane.showMessageDialog(null, "Autor não excluído");
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Selecione um autor para deleta-lo");
+        }
+        carregarAutores();
+    }//GEN-LAST:event_botaoExcluirAutorMouseClicked
+
+    private void botaoAlterarAutorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botaoAlterarAutorMouseClicked
+        if (autorSelecionado != null && seletorAutores.getSelectedItem() != null) {
+            String parseNome = campoAlterarNomeAutor.getText().replace(" ","");
+            String parseSobrenome = campoAlterarSobrenomeAutor.getText().replace(" ","");
+
+            if (parseNome.isEmpty() || parseSobrenome.isEmpty()){
+                JOptionPane.showMessageDialog(this, "Existem campos vazios!");
+            } else {
+                autorSelecionado.setName(campoAlterarNomeAutor.getText());
+                autorSelecionado.setfName(campoAlterarSobrenomeAutor.getText());
+
+                if (new Controller<Authors>(Authors.class, new AuthorsDAO()).alterarDado(autorSelecionado)) {
+                    JOptionPane.showMessageDialog(this, "Objeto persistido");
+                } else {
+                    JOptionPane.showMessageDialog(this, "Objeto não persistido");
+                }
+
+                carregarAutores();
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Selecione um autor!");
+        }
+    }//GEN-LAST:event_botaoAlterarAutorMouseClicked
+
+    private void campoIncluirNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoIncluirNomeActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_campoIncluirNomeActionPerformed
+
+    private void botaoIncluirAutorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botaoIncluirAutorMouseClicked
+        
+        String parseNome = campoIncluirNome.getText().replace(" ","");
+        String parseSobrenome = campoIncluirSobrenome.getText();
+        boolean camposInValidos = parseNome.isEmpty() || parseSobrenome.isEmpty();
+        if (camposInValidos){
+            JOptionPane.showMessageDialog(this, "Existem campos vazios");
+        } else {
+
+            autorSelecionado = new Authors();
+            autorSelecionado.setName(campoIncluirNome.getText());
+            autorSelecionado.setfName(campoIncluirSobrenome.getText());
+
+            int retorno = new Controller<Authors>(Authors.class, new AuthorsDAO()).gravarDados(autorSelecionado);
+
+            if (retorno == 1) {
+                JOptionPane.showMessageDialog(this, "Autor adicionado!");
+                carregarAutores();
+            } else if (retorno == 2) {
+                JOptionPane.showMessageDialog(this, "Autor não adicionado");
+            } else {
+                JOptionPane.showMessageDialog(this, "Autor já existe");
+            }
+        }
+    }//GEN-LAST:event_botaoIncluirAutorMouseClicked
+
     private void configMascaras() {
         JFrameMaskUtil.customFormat(campoIncluirPreco,"R$ ", FieldType.CURRENCY,10);
         JFrameMaskUtil.customFormat(campoAlterarPrecoLivro, JFrameMaskUtil.CURRENCY_FORMAT, FieldType.CURRENCY,10);
         JFrameMaskUtil.customFormat(campoIncluirIsbn,"isbn", FieldType.POSITIVE_INTEGER,13);
         JFrameMaskUtil.customFormat(campoIncluirTitulo,"", FieldType.LETTERS,60);
+        JFrameMaskUtil.customFormat(campoIncluirNome,"", FieldType.LETTERS,25);
+        JFrameMaskUtil.customFormat(campoIncluirSobrenome,"", FieldType.LETTERS,25);
+        JFrameMaskUtil.customFormat(campoAlterarNomeAutor,"", FieldType.LETTERS,25);
+        JFrameMaskUtil.customFormat(campoAlterarSobrenomeAutor,"", FieldType.LETTERS,25);
     }
 
     /**
@@ -661,18 +964,29 @@ public class FrmViewHome extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTabbedPane abaEdicao;
     private javax.swing.JTabbedPane abaPrincipal;
+    private javax.swing.JTabbedPane autorAbas;
+    private javax.swing.JPanel autorPainelEditar;
+    private javax.swing.JPanel autorPainelIncluirDeletar;
+    private javax.swing.JButton botaoAlterarAutor;
     private javax.swing.JButton botaoAlterarLivro;
     private javax.swing.JButton botaoBuscar;
+    private javax.swing.JButton botaoExcluirAutor;
     private javax.swing.JButton botaoExcluirLivro;
+    private javax.swing.JButton botaoIncluirAutor;
     private javax.swing.JButton botaoIncluirLivro;
+    private javax.swing.JTextField campoAlterarNomeAutor;
     private javax.swing.JTextField campoAlterarPrecoLivro;
+    private javax.swing.JTextField campoAlterarSobrenomeAutor;
     private javax.swing.JTextField campoAlterarTituloLivro;
     private javax.swing.JTextField campoIncluirIsbn;
+    private javax.swing.JTextField campoIncluirNome;
     private javax.swing.JTextField campoIncluirPreco;
+    private javax.swing.JTextField campoIncluirSobrenome;
     private javax.swing.JTextField campoIncluirTitulo;
     private javax.swing.ButtonGroup grupoLivrosAutores;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel11;
     private javax.swing.JPanel jPanel12;
@@ -682,22 +996,31 @@ public class FrmViewHome extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
+    private javax.swing.JPanel jPanel8;
+    private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JLabel labelIncluirAutor;
+    private javax.swing.JLabel labelIncluirNome;
     private javax.swing.JLabel labelIncluirPreco;
+    private javax.swing.JLabel labelIncluirSobrenome;
     private javax.swing.JLabel labelIncluirTitulo;
     private javax.swing.JLabel labelIsbn;
+    private javax.swing.JLabel labelNome;
     private javax.swing.JLabel labelPreco;
+    private javax.swing.JLabel labelSobrenome;
     private javax.swing.JLabel labelTitulo;
     private javax.swing.JTabbedPane livrosAbas;
     private javax.swing.JPanel livrosPainelEditar;
     private javax.swing.JPanel livrosPainelIncluirDeletar;
     private javax.swing.JRadioButton radioButtomAutores;
     private javax.swing.JRadioButton radioButtomLivros;
+    private javax.swing.JComboBox<String> seletorAutores;
     private javax.swing.JComboBox<String> seletorEditoraLivros;
     private javax.swing.JComboBox<String> seletorFiltroEditora;
     private javax.swing.JComboBox<String> seletorLivros;
+    private javax.swing.JTable tabelaEditAutor;
     private javax.swing.JTable tabelaEditLivro;
     private javax.swing.JTable tabelaPesquisa;
     // End of variables declaration//GEN-END:variables
