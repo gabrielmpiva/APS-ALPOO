@@ -384,7 +384,7 @@ public class FrmViewHome extends javax.swing.JFrame {
 
         autorPainelEditar.setToolTipText("");
 
-        jPanel8.setBorder(javax.swing.BorderFactory.createTitledBorder("Editar livro"));
+        jPanel8.setBorder(javax.swing.BorderFactory.createTitledBorder("Editar autor"));
 
         labelNome.setText("Nome");
 
@@ -450,7 +450,7 @@ public class FrmViewHome extends javax.swing.JFrame {
 
         autorAbas.addTab("Editar", autorPainelEditar);
 
-        jPanel9.setBorder(javax.swing.BorderFactory.createTitledBorder("Incluir novo livro"));
+        jPanel9.setBorder(javax.swing.BorderFactory.createTitledBorder("Incluir novo autor"));
         jPanel9.setToolTipText("");
 
         labelIncluirNome.setText("Nome");
