@@ -8,19 +8,28 @@ public class Publishers {
     @Id
     @Column(unique = true)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer publisherId;
+    private Integer publisher_Id;
     private String  name;
     private String  url;
+
+    public static final String ORDER_BY_NAME = "name";
 
     public Publishers() {
     }
 
-    public Integer getPublisherId() {
-        return publisherId;
+    public Publishers(Integer publisherId, String name, String url) {
+		super();
+		this.publisher_Id = publisherId;
+		this.name = name;
+		this.url = url;
+	}
+
+	public Integer getPublisherId() {
+        return publisher_Id;
     }
 
     public void setPublisherId(Integer publisherId) {
-        this.publisherId = publisherId;
+        this.publisher_Id = publisherId;
     }
 
     public String getName() {

@@ -2,13 +2,13 @@ package util;
 
 import control.Controller;
 import dao.DaoGenerico;
+import model.Authors;
 import model.Books;
-
-import javax.swing.*;
+import model.Publishers;
 import javax.swing.table.DefaultTableModel;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
+
 
 public class JFrameUtil<T> {
 
@@ -33,52 +33,64 @@ public class JFrameUtil<T> {
         return listaDeLivros;
     }
 
+    public ArrayList<Authors> carregarAutores(ArrayList<Authors> listaDeAutores) {
+
+        List Livros = new ArrayList<>();
+        listaDeAutores = new ArrayList<>();
+
+        Livros = controller.carregarTodosDados(Authors.ORDER_BY_NAME);
+        for (Object o : Livros) {
+            listaDeAutores.add((Authors) o);
+        }
+        return listaDeAutores;
+    }
+
+
+    public ArrayList<Publishers> carregarEditoras(ArrayList<Publishers> listaDeEditoras) {
+
+    	  List Livros = new ArrayList<>();
+          listaDeEditoras = new ArrayList<>();
+
+          Livros = controller.carregarTodosDados(Publishers.ORDER_BY_NAME);
+          for (Object o : Livros) {
+              listaDeEditoras.add((Publishers) o);
+          }
+          return listaDeEditoras;
+    }
+
     public DefaultTableModel carregarLivrosNaTabela(ArrayList<Books> listaDeLivros) {
         DefaultTableModel modelo = new DefaultTableModel();
+        modelo.addColumn("title");
+        modelo.addColumn("isbn");
+        modelo.addColumn("publisher_id");
+        modelo.addColumn("price");
         if (listaDeLivros != null && listaDeLivros.size() > 0) {
-            for (Books books : listaDeLivros) {
-                Object[][] dados = {
-                        {
-                                books.getTitle(),
-                                books.getIsbn(),
-                                books.getPublisherId(),
-                                books.getPrice()
-                        }
-                };
-                String[] colunas = {"title", "isbn", "publisher_id", "price"};
-                modelo.setDataVector(dados,colunas);
+            modelo.setNumRows(listaDeLivros.size());
+            for (int i = 0; i < listaDeLivros.size(); i++) {
+                    modelo.setValueAt(listaDeLivros.get(i).getTitle(),i,0);
+                    modelo.setValueAt(listaDeLivros.get(i).getIsbn(),i,1);
+                    modelo.setValueAt(listaDeLivros.get(i).getPublisherId(),i,2);
+                    modelo.setValueAt(listaDeLivros.get(i).getPrice(),i,3);
+            }
+        }
+        return modelo;
+    }
+
+
+    public DefaultTableModel carregarEditorasNaTabela(ArrayList<Publishers> listaDeEditoras) {
+        DefaultTableModel modelo = new DefaultTableModel();
+        modelo.addColumn("id");
+        modelo.addColumn("nome");
+        modelo.addColumn("url");
+        if (listaDeEditoras != null && listaDeEditoras.size() > 0) {
+            modelo.setNumRows(listaDeEditoras.size());
+            for (int i = 0; i < listaDeEditoras.size(); i++) {
+                    modelo.setValueAt(listaDeEditoras.get(i).getPublisherId(),i,0);
+                    modelo.setValueAt(listaDeEditoras.get(i).getName(),i,1);
+                    modelo.setValueAt(listaDeEditoras.get(i).getUrl(),i,2);
+
             }
         }
         return modelo;
     }
 }
-
-/*
-    Livros = controller.carregarTodosDados(Books.ORDER_BY_TITLE);
-    ListaDeLivros.removeAllItems();
-    for (Object obj : Livros) {
-        Books b = (Books) obj;
-        ListaDeLivros.addItem(b.getTitle());
-    }
-
-
-    tabelaEditLivro = new JTable();
-    List objects = new ArrayList<>();
-    objects = controller.carregarTodosDados(Books.ORDER_BY_TITLE);
-    if (objects != null) {
-        for (Object list : objects) {
-            Books books = (Books) list;
-            Object[][] dados = {
-                    {
-                            books.getTitle(),
-                            books.getIsbn(),
-                            books.getPublisherId(),
-                            books.getPrice()
-                    }
-            };
-            String[] colunas = {"title", "isbn", "publisher_id", "price"};
-            tabelaEditLivro = new JTable(dados, colunas);
-        }
-    }
-    return tabelaEditLivro;
- */
