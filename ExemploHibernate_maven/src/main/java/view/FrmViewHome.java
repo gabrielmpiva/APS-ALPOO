@@ -10,15 +10,18 @@ import control.Controller;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Random;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
 import dao.AuthorsDAO;
 import dao.BookDAO;
+import dao.BooksAuthorsDAO;
 import dao.PublishersDAO;
 import enums.FieldType;
 import model.Authors;
 import model.Books;
+import model.BooksAuthors;
 import model.Publishers;
 import util.JFrameMaskUtil;
 import util.JFrameUtil;
@@ -73,11 +76,13 @@ public class FrmViewHome extends javax.swing.JFrame {
         campoIncluirTitulo = new javax.swing.JTextField();
         campoIncluirIsbn = new javax.swing.JTextField();
         labelIsbn = new javax.swing.JLabel();
-        labelIncluirAutor = new javax.swing.JLabel();
+        labelIncluirEditora = new javax.swing.JLabel();
         seletorEditoraLivros = new javax.swing.JComboBox<>();
         campoIncluirPreco = new javax.swing.JTextField();
         labelIncluirPreco = new javax.swing.JLabel();
         botaoIncluirLivro = new javax.swing.JButton();
+        seletorAutorLivros = new javax.swing.JComboBox<>();
+        labelIncluirAutor = new javax.swing.JLabel();
         botaoExcluirLivro = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
@@ -116,6 +121,12 @@ public class FrmViewHome extends javax.swing.JFrame {
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowOpened(java.awt.event.WindowEvent evt) {
                 formWindowOpened(evt);
+            }
+        });
+
+        abaPrincipal.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                abaPrincipalMouseClicked(evt);
             }
         });
 
@@ -183,7 +194,7 @@ public class FrmViewHome extends javax.swing.JFrame {
                     .addComponent(campoAlterarPrecoLivro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(botaoAlterarLivro)
-                .addContainerGap(32, Short.MAX_VALUE))
+                .addContainerGap(107, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout livrosPainelEditarLayout = new javax.swing.GroupLayout(livrosPainelEditar);
@@ -211,7 +222,7 @@ public class FrmViewHome extends javax.swing.JFrame {
 
         labelIsbn.setText("Isbn");
 
-        labelIncluirAutor.setText("Editora");
+        labelIncluirEditora.setText("Editora");
 
         seletorEditoraLivros.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -228,6 +239,14 @@ public class FrmViewHome extends javax.swing.JFrame {
             }
         });
 
+        seletorAutorLivros.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                seletorAutorLivrosActionPerformed(evt);
+            }
+        });
+
+        labelIncluirAutor.setText("Autor");
+
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
@@ -240,7 +259,7 @@ public class FrmViewHome extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
                         .addComponent(campoIncluirPreco, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                        .addComponent(labelIncluirAutor)
+                        .addComponent(labelIncluirEditora)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(seletorEditoraLivros, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
@@ -250,7 +269,11 @@ public class FrmViewHome extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(campoIncluirTitulo, javax.swing.GroupLayout.DEFAULT_SIZE, 206, Short.MAX_VALUE)
-                            .addComponent(campoIncluirIsbn))))
+                            .addComponent(campoIncluirIsbn)))
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addComponent(labelIncluirAutor)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(seletorAutorLivros, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(botaoIncluirLivro, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -269,13 +292,17 @@ public class FrmViewHome extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(seletorEditoraLivros, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(labelIncluirEditora))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(seletorAutorLivros, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(labelIncluirAutor))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(campoIncluirPreco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(labelIncluirPreco)
                     .addComponent(botaoIncluirLivro))
-                .addGap(17, 17, 17))
+                .addGap(91, 91, 91))
         );
 
         javax.swing.GroupLayout livrosPainelIncluirDeletarLayout = new javax.swing.GroupLayout(livrosPainelIncluirDeletar);
@@ -291,7 +318,7 @@ public class FrmViewHome extends javax.swing.JFrame {
             livrosPainelIncluirDeletarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(livrosPainelIncluirDeletarLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 227, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -327,7 +354,7 @@ public class FrmViewHome extends javax.swing.JFrame {
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap(33, Short.MAX_VALUE)
+                .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(seletorLivros, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -335,9 +362,9 @@ public class FrmViewHome extends javax.swing.JFrame {
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(botaoExcluirLivro)
-                .addGap(8, 8, 8)
-                .addComponent(livrosAbas, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addGap(33, 33, 33)
+                .addComponent(livrosAbas, javax.swing.GroupLayout.PREFERRED_SIZE, 277, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         abaEdicao.addTab("Livros", jPanel2);
@@ -522,7 +549,7 @@ public class FrmViewHome extends javax.swing.JFrame {
                                 .addComponent(seletorAutores, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 415, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(autorAbas, javax.swing.GroupLayout.PREFERRED_SIZE, 445, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(140, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -568,8 +595,8 @@ public class FrmViewHome extends javax.swing.JFrame {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(abaEdicao, javax.swing.GroupLayout.PREFERRED_SIZE, 397, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(83, Short.MAX_VALUE))
+                .addComponent(abaEdicao, javax.swing.GroupLayout.PREFERRED_SIZE, 449, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(32, Short.MAX_VALUE))
         );
 
         abaPrincipal.addTab("Editar", jPanel3);
@@ -578,6 +605,12 @@ public class FrmViewHome extends javax.swing.JFrame {
 
         jLabel2.setText("Selecione a editora");
 
+        seletorFiltroEditora.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                seletorFiltroEditoraActionPerformed(evt);
+            }
+        });
+
         grupoLivrosAutores.add(radioButtomLivros);
         radioButtomLivros.setText("Livros");
 
@@ -585,6 +618,16 @@ public class FrmViewHome extends javax.swing.JFrame {
         radioButtomAutores.setText("Autores");
 
         botaoBuscar.setText("Buscar");
+        botaoBuscar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                botaoBuscarMouseClicked(evt);
+            }
+        });
+        botaoBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botaoBuscarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel11Layout = new javax.swing.GroupLayout(jPanel11);
         jPanel11.setLayout(jPanel11Layout);
@@ -717,9 +760,12 @@ public class FrmViewHome extends javax.swing.JFrame {
         listaDeAutores = new ArrayList<>();
         listaDeAutores = new JFrameUtil<Authors>(Authors.class, new AuthorsDAO()).carregarAutores(listaDeAutores);
         seletorAutores.removeAllItems();
+        seletorAutorLivros.removeAllItems();
         for (Authors a : listaDeAutores) {
             seletorAutores.addItem(a.getFullName());
+            seletorAutorLivros.addItem(a.getFullName());
         }
+
         
         if (listaDeAutores.size() == 0) {
             autorSelecionado = null;
@@ -741,6 +787,8 @@ public class FrmViewHome extends javax.swing.JFrame {
         carregarAutores();
         configMascaras();
         carregarEditoras();
+        carregarLivrosPorEditora();
+        grupoLivrosAutores.setSelected(radioButtomLivros.getModel(), true);
     }//GEN-LAST:event_formWindowOpened
 
     private void seletorEditoraLivrosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_seletorEditoraLivrosActionPerformed
@@ -750,6 +798,13 @@ public class FrmViewHome extends javax.swing.JFrame {
             }
         });
     }//GEN-LAST:event_seletorEditoraLivrosActionPerformed
+
+    private void carregarLivrosPorEditora() {
+        seletorFiltroEditora.removeAllItems();
+        for (Publishers p : listaDeEditoras) {
+            seletorFiltroEditora.addItem(p.getName());
+        }
+    }
 
     private void botaoIncluirLivroMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botaoIncluirLivroMouseClicked
         String parsePreco = campoIncluirPreco.getText().replace(JFrameMaskUtil.CURRENCY_FORMAT,"");
@@ -920,6 +975,60 @@ public class FrmViewHome extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_botaoIncluirAutorMouseClicked
 
+    private void abaPrincipalMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_abaPrincipalMouseClicked
+        if (abaPrincipal.getSelectedIndex() == 1) {
+            carregarLivrosPorEditora();
+        }
+    }//GEN-LAST:event_abaPrincipalMouseClicked
+
+    private void botaoBuscarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botaoBuscarMouseClicked
+        ButtonModel model = grupoLivrosAutores.getSelection();
+
+    }//GEN-LAST:event_botaoBuscarMouseClicked
+
+    private void botaoBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoBuscarActionPerformed
+        tabelaPesquisa.setModel(new DefaultTableModel());
+        boolean livroSelecionado = grupoLivrosAutores.isSelected(radioButtomLivros.getModel());
+        if (livroSelecionado) {
+            tabelaPesquisa.setModel(new JFrameUtil<Books>().carregarLivrosNaTabela(getListaDeLivroFiltrada()));
+        } else {
+            for (Authors authors : listaDeAutores) {
+                for (Books b : getListaDeLivroFiltrada()) {
+                    if (authors.getAuthorId().equals(b)){
+
+                    }
+                }
+            }
+        }
+    }//GEN-LAST:event_botaoBuscarActionPerformed
+
+    private ArrayList<Books> getListaDeLivroFiltrada() {
+        ArrayList<Books> listaFiltrada = new ArrayList<>();
+        for (Books b : listaDeLivros) {
+            if (b.getPublisherId().equals(editoraDelivroSelecionado.getPublisherId())){
+                listaFiltrada.add(b);
+            }
+        }
+        return listaFiltrada;
+    }
+
+    private void seletorFiltroEditoraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_seletorFiltroEditoraActionPerformed
+        listaDeEditoras.forEach((e) -> {
+            if (e.getName().equals(seletorFiltroEditora.getSelectedItem())) {
+                editoraDelivroSelecionado = e;
+            }
+        });
+    }//GEN-LAST:event_seletorFiltroEditoraActionPerformed
+
+    private void seletorAutorLivrosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_seletorAutorLivrosActionPerformed
+        // TODO add your handling code here:
+        listaDeAutores.forEach((e) -> {
+            if (e.getName().equals(seletorAutorLivros.getSelectedItem())) {
+                autorSelecionado = e;
+            }
+        });
+    }//GEN-LAST:event_seletorAutorLivrosActionPerformed
+
     private void configMascaras() {
         JFrameMaskUtil.customFormat(campoIncluirPreco,"R$ ", FieldType.CURRENCY,10);
         JFrameMaskUtil.customFormat(campoAlterarPrecoLivro, JFrameMaskUtil.CURRENCY_FORMAT, FieldType.CURRENCY,10);
@@ -984,6 +1093,7 @@ public class FrmViewHome extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JLabel labelIncluirAutor;
+    private javax.swing.JLabel labelIncluirEditora;
     private javax.swing.JLabel labelIncluirNome;
     private javax.swing.JLabel labelIncluirPreco;
     private javax.swing.JLabel labelIncluirSobrenome;
@@ -998,6 +1108,7 @@ public class FrmViewHome extends javax.swing.JFrame {
     private javax.swing.JPanel livrosPainelIncluirDeletar;
     private javax.swing.JRadioButton radioButtomAutores;
     private javax.swing.JRadioButton radioButtomLivros;
+    private javax.swing.JComboBox<String> seletorAutorLivros;
     private javax.swing.JComboBox<String> seletorAutores;
     private javax.swing.JComboBox<String> seletorEditoraLivros;
     private javax.swing.JComboBox<String> seletorFiltroEditora;

@@ -49,6 +49,9 @@
   </Layout>
   <SubComponents>
     <Container class="javax.swing.JTabbedPane" name="abaPrincipal">
+      <Events>
+        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="abaPrincipalMouseClicked"/>
+      </Events>
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout"/>
       <SubComponents>
@@ -75,8 +78,8 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="abaEdicao" min="-2" pref="397" max="-2" attributes="0"/>
-                      <EmptySpace pref="83" max="32767" attributes="0"/>
+                      <Component id="abaEdicao" min="-2" pref="449" max="-2" attributes="0"/>
+                      <EmptySpace pref="32" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -123,7 +126,7 @@
                     <DimensionLayout dim="1">
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
-                              <EmptySpace pref="33" max="32767" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="seletorLivros" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -132,9 +135,9 @@
                               <Component id="jScrollPane2" min="-2" pref="50" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Component id="botaoExcluirLivro" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
-                              <Component id="livrosAbas" min="-2" pref="202" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
+                              <Component id="livrosAbas" min="-2" pref="277" max="-2" attributes="0"/>
+                              <EmptySpace max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -259,7 +262,7 @@
                                           </Group>
                                           <EmptySpace type="separate" max="-2" attributes="0"/>
                                           <Component id="botaoAlterarLivro" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace pref="32" max="32767" attributes="0"/>
+                                          <EmptySpace pref="107" max="32767" attributes="0"/>
                                       </Group>
                                   </Group>
                                 </DimensionLayout>
@@ -314,7 +317,7 @@
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Group type="102" alignment="0" attributes="0">
                                       <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="jPanel4" max="32767" attributes="0"/>
+                                      <Component id="jPanel4" pref="227" max="32767" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
                                   </Group>
                               </Group>
@@ -342,7 +345,7 @@
                                                   <Component id="campoIncluirPreco" min="-2" pref="207" max="-2" attributes="0"/>
                                               </Group>
                                               <Group type="102" alignment="1" attributes="0">
-                                                  <Component id="labelIncluirAutor" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="labelIncluirEditora" min="-2" max="-2" attributes="0"/>
                                                   <EmptySpace max="32767" attributes="0"/>
                                                   <Component id="seletorEditoraLivros" min="-2" pref="206" max="-2" attributes="0"/>
                                               </Group>
@@ -356,6 +359,11 @@
                                                       <Component id="campoIncluirTitulo" pref="206" max="32767" attributes="0"/>
                                                       <Component id="campoIncluirIsbn" max="32767" attributes="0"/>
                                                   </Group>
+                                              </Group>
+                                              <Group type="102" attributes="0">
+                                                  <Component id="labelIncluirAutor" min="-2" max="-2" attributes="0"/>
+                                                  <EmptySpace max="32767" attributes="0"/>
+                                                  <Component id="seletorAutorLivros" min="-2" pref="206" max="-2" attributes="0"/>
                                               </Group>
                                           </Group>
                                           <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
@@ -380,15 +388,20 @@
                                           <EmptySpace min="-2" max="-2" attributes="0"/>
                                           <Group type="103" groupAlignment="3" attributes="0">
                                               <Component id="seletorEditoraLivros" alignment="3" min="-2" max="-2" attributes="0"/>
-                                              <Component id="labelIncluirAutor" alignment="3" min="-2" max="-2" attributes="0"/>
+                                              <Component id="labelIncluirEditora" alignment="3" min="-2" max="-2" attributes="0"/>
                                           </Group>
                                           <EmptySpace min="-2" max="-2" attributes="0"/>
+                                          <Group type="103" groupAlignment="3" attributes="0">
+                                              <Component id="seletorAutorLivros" alignment="3" min="-2" max="-2" attributes="0"/>
+                                              <Component id="labelIncluirAutor" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          </Group>
+                                          <EmptySpace max="-2" attributes="0"/>
                                           <Group type="103" groupAlignment="3" attributes="0">
                                               <Component id="campoIncluirPreco" alignment="3" min="-2" max="-2" attributes="0"/>
                                               <Component id="labelIncluirPreco" alignment="3" min="-2" max="-2" attributes="0"/>
                                               <Component id="botaoIncluirLivro" alignment="3" min="-2" max="-2" attributes="0"/>
                                           </Group>
-                                          <EmptySpace min="-2" pref="17" max="-2" attributes="0"/>
+                                          <EmptySpace min="-2" pref="91" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
                                 </DimensionLayout>
@@ -408,7 +421,7 @@
                                     <Property name="text" type="java.lang.String" value="Isbn"/>
                                   </Properties>
                                 </Component>
-                                <Component class="javax.swing.JLabel" name="labelIncluirAutor">
+                                <Component class="javax.swing.JLabel" name="labelIncluirEditora">
                                   <Properties>
                                     <Property name="text" type="java.lang.String" value="Editora"/>
                                   </Properties>
@@ -440,6 +453,24 @@
                                   <Events>
                                     <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="botaoIncluirLivroMouseClicked"/>
                                   </Events>
+                                </Component>
+                                <Component class="javax.swing.JComboBox" name="seletorAutorLivros">
+                                  <Properties>
+                                    <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+                                      <StringArray count="0"/>
+                                    </Property>
+                                  </Properties>
+                                  <Events>
+                                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="seletorAutorLivrosActionPerformed"/>
+                                  </Events>
+                                  <AuxValues>
+                                    <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+                                  </AuxValues>
+                                </Component>
+                                <Component class="javax.swing.JLabel" name="labelIncluirAutor">
+                                  <Properties>
+                                    <Property name="text" type="java.lang.String" value="Autor"/>
+                                  </Properties>
                                 </Component>
                               </SubComponents>
                             </Container>
@@ -485,7 +516,7 @@
                                   </Group>
                                   <Component id="autorAbas" alignment="0" min="-2" pref="445" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace pref="140" max="32767" attributes="0"/>
+                              <EmptySpace max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -920,6 +951,9 @@
                       <StringArray count="0"/>
                     </Property>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="seletorFiltroEditoraActionPerformed"/>
+                  </Events>
                   <AuxValues>
                     <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
                   </AuxValues>
@@ -944,6 +978,10 @@
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Buscar"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="botaoBuscarMouseClicked"/>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botaoBuscarActionPerformed"/>
+                  </Events>
                 </Component>
               </SubComponents>
             </Container>

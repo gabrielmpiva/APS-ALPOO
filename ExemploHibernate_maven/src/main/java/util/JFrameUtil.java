@@ -12,7 +12,9 @@ import java.util.List;
 
 public class JFrameUtil<T> {
 
-    private final Controller<T> controller;
+    private Controller<T> controller;
+
+    public  JFrameUtil(){}
 
     public JFrameUtil(
             Class<T> aClass,
@@ -23,11 +25,10 @@ public class JFrameUtil<T> {
 
     public ArrayList<Books> carregarLivros(ArrayList<Books> listaDeLivros) {
 
-        List Livros = new ArrayList<>();
         listaDeLivros = new ArrayList<>();
 
-        Livros = controller.carregarTodosDados(Books.ORDER_BY_TITLE);
-        for (Object o : Livros) {
+        List list = controller.carregarTodosDados(Books.ORDER_BY_TITLE);
+        for (Object o : list) {
             listaDeLivros.add((Books) o);
         }
         return listaDeLivros;
